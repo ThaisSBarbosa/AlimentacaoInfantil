@@ -1,3 +1,5 @@
+using AlimentacaoInfantil.Enums;
+
 namespace AlimentacaoInfantil.Models
 {
     public class UsuarioViewModel
@@ -5,5 +7,7 @@ namespace AlimentacaoInfantil.Models
         public int Codigo { get; set; }
 
         public string Nome { get; set; }
+
+        public EnumTipoUsuario Tipo { get; set; }
     }
 }

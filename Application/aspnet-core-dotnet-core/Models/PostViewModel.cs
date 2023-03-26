@@ -8,11 +8,11 @@ namespace AlimentacaoInfantil.Models
 
         public string Conteudo { get; set; }
 
-        public string Autor { get; set; }
+        public int Autor { get; set; }
 
-        public Boolean Amei { get; set; }
+        public int Amei { get; set; }
 
-        public Boolean Anuncio { get; set; }
+        public bool Anuncio { get; set; }
 
         public DateTime Data { get; set; }
     }

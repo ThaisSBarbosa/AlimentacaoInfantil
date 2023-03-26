@@ -1,4 +1,5 @@
 using System;
+using AlimentacaoInfantil.Enums;
 
 namespace AlimentacaoInfantil.Models
 {
@@ -12,7 +13,7 @@ namespace AlimentacaoInfantil.Models
 
         public int CodigoUsuarioDestinatario { get; set; }
 
-        public string Status { get; set; }
+        public EnumStatusMensagem Status { get; set; }
 
         public DateTime DataAtualizacao { get; set; }
 
