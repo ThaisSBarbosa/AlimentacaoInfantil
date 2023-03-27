@@ -48,7 +48,13 @@ namespace aspnet_core_dotnet_core
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
-                endpoints.MapRazorPages();
+                //endpoints.MapRazorPages();
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller=Home}/{action=Index}/{id?}");
+                });
             });
         }
     }

@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace AlimentacaoInfantil.DAO
 {
-    public class PostsDAO
+    public class PostsDAO: IDisposable
     {
 
         private MySqlParameter[] CriaParametros(PostViewModel post)
@@ -27,16 +27,14 @@ namespace AlimentacaoInfantil.DAO
         public void Inserir(PostViewModel post)
         {
             string sql = "insert into tbPosts " +
-                "(pst_codigo, " +
-                "pst_conteudo, " +
+                "(pst_conteudo, " +
                 "usr_codigo_autor, " +
                 "pst_amei, " +
                 "pst_anuncio, " +
                 "pst_data) " +
-                    "values (@pst_codigo, " +
-                    "@pst_conteudo, " +
+                    "values (@pst_conteudo, " +
                     "@usr_codigo_autor, " +
-                    "@usr_amei, " +
+                    "@pst_amei, " +
                     "@pst_anuncio, " +
                     "@pst_data)";
 
@@ -58,7 +56,7 @@ namespace AlimentacaoInfantil.DAO
 
         public void Excluir(int id)
         {
-            string sql = "delete tbPosts where pst_codigo = " + id;
+            string sql = "delete from tbPosts where pst_codigo = " + id;
             HelperDAO.ExecutaSQL(sql, null);
         }
 
@@ -102,7 +100,9 @@ namespace AlimentacaoInfantil.DAO
             return Post;
         }
 
-
-
+        public void Dispose()
+        {
+            Dispose();
+        }
     }
 }

@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace AlimentacaoInfantil.DAO
 {
-    public class ConexaoDAO
+    public class ConexaoDAO : IDisposable
     {
 
         private MySqlParameter[] CriaParametros(ConexaoViewModel mensagem)
@@ -25,11 +25,9 @@ namespace AlimentacaoInfantil.DAO
         public void Inserir(ConexaoViewModel mensagem)
         {
             string sql = "insert into tbConexoes " +
-                "(con_codigo, " +
-                "usr_codigo_1, " +
+                "(usr_codigo_1, " +
                 "usr_codigo_2) " +
-                    "values (@con_codigo, " +
-                    "@usr_codigo_1, " +
+                    "values (@usr_codigo_1, " +
                     "@usr_codigo_2)";
 
             HelperDAO.ExecutaSQL(sql, CriaParametros(mensagem));
@@ -47,7 +45,7 @@ namespace AlimentacaoInfantil.DAO
 
         public void Excluir(int id)
         {
-            string sql = "delete tbConexoes where con_codigo = " + id;
+            string sql = "delete from tbConexoes where con_codigo = " + id;
             HelperDAO.ExecutaSQL(sql, null);
         }
 
@@ -88,7 +86,10 @@ namespace AlimentacaoInfantil.DAO
             return Mensagem;
         }
 
-
+        public void Dispose()
+        {
+            Dispose();
+        }
 
     }
 }

@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace AlimentacaoInfantil.DAO
 {
-    public class UsuariosDAO
+    public class UsuariosDAO : IDisposable
     {
 
         private MySqlParameter[] CriaParametros(UsuarioViewModel usuario)
@@ -25,11 +25,9 @@ namespace AlimentacaoInfantil.DAO
         public void Inserir(UsuarioViewModel usuario)
         {
             string sql = "insert into tbUsuarios " +
-                "(usr_codigo, " +
-                "usr_nome, " +
+                "(usr_nome, " +
                 "usr_tipo) " +
-                    "values (@usr_codigo, " +
-                    "@usr_nome, " +
+                    "values (@usr_nome, " +
                     "@usr_tipo)";
 
             HelperDAO.ExecutaSQL(sql, CriaParametros(usuario));
@@ -47,7 +45,7 @@ namespace AlimentacaoInfantil.DAO
 
         public void Excluir(int id)
         {
-            string sql = "delete tbUsuarios where usr_codigo = " + id;
+            string sql = "delete from tbUsuarios where usr_codigo = " + id;
             HelperDAO.ExecutaSQL(sql, null);
         }
 
@@ -88,7 +86,10 @@ namespace AlimentacaoInfantil.DAO
             return Usuario;
         }
 
-
+        public void Dispose()
+        {
+            Dispose();
+        }
 
     }
 }
