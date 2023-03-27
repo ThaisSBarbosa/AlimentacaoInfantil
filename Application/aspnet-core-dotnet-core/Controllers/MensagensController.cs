@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace AlimentacaoInfantil.Controllers
 {
-    public class HomeController : Controller
+    public class MensagensController : Controller
     {
         public IActionResult Index()
         {
@@ -13,7 +13,7 @@ namespace AlimentacaoInfantil.Controllers
 
         public IActionResult Privacy()
         {
-            return View(); 
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

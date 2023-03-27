@@ -1,44 +1,52 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home Page - ASP.NET Core";
+    ViewData["Title"] = "Testes de APIs";
 }
 
-<div class="main-container">
-    <div class="cloud-image">
-        <img src="~/images/successCloudNew.svg" />
-    </div>
-    <div class="content">
-        <div class="tweet-container">
-            <a href="https://twitter.com/intent/tweet/?text=I%20just%20created%20a%20new%20ASP.net%20website%20on%20%40Azure%20using%20%40GitHub&hashtags=GitHubWorkflow">
-                <img src="~/images/tweetThis.svg" />
-            </a>            
+
+<div class="principal">
+
+    <div class="primeira-linha row">
+        <div class="col-md-12">
+            <h2>Testes de APIs do Projeto para Alimentação Infantil!</h2>
+            <p>
+                Nosso website ainda não possui interface, mas você pode testar algumas das principais
+                APIs utilizadas aqui.
+            </p>
         </div>
-        <div class="content-body">
-            <div class="success-text">Success!</div>
-            <div class="description line-1"> GitHub Workflow has been successfully setup</div>
-            <div class="description line-2"> Your ASP.NET MVC app is up and running on Azure</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <select id="cbAPI" class="form-select form-select-lg">
+                <option value="0" selected>Escolha uma API...</option>
+                <option value="1">Exibir Posts</option>
+                <option value="2">Fazer um Post</option>
+                <option value="3">Editar um Post</option>
+                <option value="4">Apagar um Post</option>
+                <option value="5">Exibir Anúncios</option>
+                <option value="6">Fazer um Anúncio</option>
+                <option value="7">Editar um Anúncio</option>
+                <option value="8">Apagar um Anúncio</option>
+                <option value="9">Enviar um Amei</option>
+                <option value="10">Retirar Amei</option>
+                <option value="11">Enviar Mensagem</option>
+                <option value="12">Responder Mensagem</option>
+                <option value="13">Conectar-se a um pai/mãe</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-info" id="btnExecutar">Executar</button>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-9 txtsAPIs">
+            <p>Request</p>
+            <textarea class="form-control" id="txtRequest" rows="8"></textarea>
+        </div>        
+        <div class="col-md-9 txtsAPIs">
+            <p>Response</p>
+            <textarea class="form-control" id="txtResponse" rows="8"></textarea>
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Get started right away </h2>
-        <p>
-            Clone your code repository and start developing your application on IDE of your choice
-        </p>
-        <p><a class="btn btn-default" href="https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Continuous Delivery</h2>
-        <p>View your GitHub workflow and customize it as per your needs</p>
-        <p><a class="btn btn-default" href="https://docs.github.com/en/actions">Learn more &raquo;</a></p>
-    </div>
-        <div class="col-md-4">
-        <h2>DevOps Starter</h2>
-        <p>Learn more about all you can do with DevOps starter by visiting the documentation</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?linkid=862126">Learn more &raquo;</a></p>
-    </div>
-</div>
-

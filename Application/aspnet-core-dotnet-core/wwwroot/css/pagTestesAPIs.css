@@ -1,0 +1,26 @@
+﻿.principal {
+    background-image: url(../img/background.jpg);
+    height: 100vh;
+    width: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 30px;
+    opacity: 0.98;
+}
+
+.primeira-linha{
+    padding-bottom: 20px;
+}
+
+#btnExecutar{
+    width: 200px;
+}
+
+#cbAPI {
+    padding: 7px;
+    width: -webkit-fill-available;
+}
+
+.txtsAPIs{
+    margin-top: 20px;
+}
