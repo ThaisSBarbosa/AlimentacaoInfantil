@@ -127,7 +127,7 @@ namespace AlimentacaoInfantil.Controllers
         }
 
         [HttpPut("Posts/EditarAnuncio")]
-        public JsonResult EditarAnuncios(int codigo, bool anuncio)
+        public JsonResult EditarAnuncio(int codigo, string conteudo)
         {
             PostsDAO postsDAO = new PostsDAO();
             PostViewModel post = postsDAO.ConsultaAnuncios(codigo);
@@ -137,7 +137,7 @@ namespace AlimentacaoInfantil.Controllers
 
             if (post != null)
             {
-                post.Anuncio = anuncio;
+                post.Conteudo = conteudo;
                 postsDAO.Alterar(post);
                 return Json(new { retorno = "Post de código " + post.Codigo + " alterado com sucesso!" });
             }
@@ -163,22 +163,43 @@ namespace AlimentacaoInfantil.Controllers
                 return Json(new { retorno = "Ocorreu uma falha. Verifique se existe algum post cadastrado." });
         }
 
-
-        /*
-        [HttpPost("Posts/EnviarAmei")]
-        public JsonResult EnviarAmei(int amei)
+        
+        [HttpPut("Posts/EnviarAmei")]
+        public JsonResult EnviarAmei(int codigo)
         {
             PostsDAO postsDAO = new PostsDAO();
+            PostViewModel post = postsDAO.ConsultaReacao(codigo);
 
-            PostViewModel enviarAmei = new PostViewModel
+            if (post == null)
+                post = postsDAO.ListaReacao().FirstOrDefault();
+
+            if (post != null)
             {
-                Amei = amei,
-            };
-
-            postsDAO.Inserir(enviarAmei);
-            return Json(new { retorno = "Reação de amei enviada com sucesso!" });
+                post.Amei++;
+                postsDAO.Alterar(post);
+                return Json(new { retorno = "Reação amei registrada com sucesso!" });
+            }
+            else
+                return Json(new { retorno = "Ocorreu uma falha. Verifique se existe algum post cadastrado." });
         }
-        */
 
+        [HttpPut("Posts/RetirarAmei")]
+        public JsonResult RetirarAmei(int codigo)
+        {
+            PostsDAO postsDAO = new PostsDAO();
+            PostViewModel post = postsDAO.ConsultaReacaoAmei(codigo);
+
+            if (post == null)
+                post = postsDAO.ListaReacaoAmei().FirstOrDefault();
+
+            if (post != null)
+            {
+                post.Amei--;
+                postsDAO.Alterar(post);
+                return Json(new { retorno = "Reação amei removida com sucesso!" });
+            }
+            else
+                return Json(new { retorno = "Ocorreu uma falha. Verifique se existe algum post cadastrado." });
+        }
     }
 }

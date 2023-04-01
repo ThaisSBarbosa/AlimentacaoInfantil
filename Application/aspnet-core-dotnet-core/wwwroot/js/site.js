@@ -122,21 +122,152 @@ function apagarPost() {
     })
 }
 
-function exibirAnuncios() { }
+function exibirAnuncios() {
 
-function fazerAnuncio() { }
+    var request = {
+        url: "Posts/ExibirAnuncios",
+        type: "get",
+        dataType: "json"
+    };
+    $.get("Posts/ExibirAnuncios", function (dados) {
+        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+    }, "json")
 
-function editarAnuncio() { }
+}
 
-function apagarAnuncio() { }
+function fazerAnuncio() {
+    var request = {
+        url: "Posts/FazerAnuncio",
+        type: "post",
+        data: '{ conteudo: "Anúncio teste", autor: 1, amei: 0 }',
+        dataType: "json"
+    };
+    $.post("Posts/FazerAnuncio", {
+        conteudo: "Anúncio teste",
+        autor: 1,
+        amei: 0
+    }, function (dados) {
+        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+    }, "json")
+}
 
-function enviarAmei() { }
+function editarAnuncio() {
+    var request = {
+        url: "Posts/EditarAnuncio",
+        type: "put",
+        data: '{ codigo: [o primeiro registro do banco], conteudo: "novo conteúdo 2" }',
+        dataType: "json"
+    };
+    $.ajax({
+        url: "Posts/EditarAnuncio",
+        method: "PUT",
+        data: {
+            codigo: 1,
+            conteudo: "novo conteúdo 2"
+        },
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    })
+}
 
-function retirarAmei() { }
+function apagarAnuncio() {
+    var request = {
+        url: "Posts/ApagarAnuncio",
+        type: "delete",
+        data: "{ codigo: [o primeiro registro do banco] }",
+        dataType: "json"
+    };
+    $.ajax({
+        url: "Posts/ApagarAnuncio",
+        method: "DELETE",
+        data: {
+            codigo: 1
+        },
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    })
+}
 
-function enviarMensagem() { }
+function enviarAmei() {
+    var request = {
+        url: "Posts/EnviarAmei",
+        type: "post",
+        data: '{ codigo: [o primeiro registro do banco] }',
+        dataType: "json"
+    };
+    $.ajax({
+        url: "Posts/EnviarAmei",
+        method: "PUT",
+        data: {
+            codigo: 1
+        },
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    })
+}
 
-function responderMensagem() { }
+function retirarAmei() {
+    var request = {
+        url: "Posts/RetirarAmei",
+        type: "put",
+        data: '{ codigo: [o primeiro registro do banco] }',
+        dataType: "json"
+    };
+    $.ajax({
+        url: "Posts/RetirarAmei",
+        method: "PUT",
+        data: {
+            codigo: 1
+        },
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    })
+}
+
+function enviarMensagem() {
+    var request = {
+        url: "Mensagens/EnviarMensagem",
+        type: "post",
+        data: '{ conteudo: "Envia mensagem", remetente: 1, destinatario: 2 }',
+        dataType: "json"
+    };
+    $.post("Mensagens/EnviarMensagem", {
+        conteudo: "Envia mensagem",
+        remetente: 1,
+        destinatario: 2
+    }, function (dados) {
+        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+    }, "json")
+}
+
+function responderMensagem() {
+    var request = {
+        url: "Mensagens/ResponderMensagem",
+        type: "post",
+        data: '{ codigo: 1, conteudo: "Respondendo mensagem", remetente: 2, destinatario: 1 }',
+        dataType: "json"
+    };
+    $.post("Mensagens/ResponderMensagem", {
+        codigo: 1,
+        conteudo: "Respondendo mensagem",
+        remetente: 2,
+        destinatario: 1
+    }, function (dados) {
+        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+    }, "json")
+}
 
 function conectarSePaiMae() {
     var request = {
