@@ -168,10 +168,11 @@ namespace AlimentacaoInfantil.Controllers
         public JsonResult EnviarAmei(int codigo)
         {
             PostsDAO postsDAO = new PostsDAO();
-            PostViewModel post = postsDAO.ConsultaReacao(codigo);
+            PostViewModel post = postsDAO.Consulta(codigo);
 
             if (post == null)
-                post = postsDAO.ListaReacao().FirstOrDefault();
+                post = postsDAO.Lista().FirstOrDefault();
+
 
             if (post != null)
             {
@@ -187,10 +188,10 @@ namespace AlimentacaoInfantil.Controllers
         public JsonResult RetirarAmei(int codigo)
         {
             PostsDAO postsDAO = new PostsDAO();
-            PostViewModel post = postsDAO.ConsultaReacaoAmei(codigo);
+            PostViewModel post = postsDAO.Consulta(codigo);
 
             if (post == null)
-                post = postsDAO.ListaReacaoAmei().FirstOrDefault();
+                post = postsDAO.Lista().FirstOrDefault();
 
             if (post != null)
             {
