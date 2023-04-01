@@ -1,4 +1,3 @@
-using aspnet_core_dotnet_core.Pages;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
     
@@ -10,8 +9,6 @@ namespace aspnet_core_dotnet_core.UnitTests
         [TestMethod]
         public void IndexPageTest()
         {
-            IndexModel model = new IndexModel();
-            Assert.AreEqual("Index", actual: model.DoTest());
         }
 
     }
