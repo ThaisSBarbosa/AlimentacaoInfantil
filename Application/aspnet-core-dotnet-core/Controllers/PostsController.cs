@@ -163,21 +163,25 @@ namespace AlimentacaoInfantil.Controllers
                 return Json(new { retorno = "Ocorreu uma falha. Verifique se existe algum post cadastrado." });
         }
 
-
-        /*
+        
         [HttpPost("Posts/EnviarAmei")]
-        public JsonResult EnviarAmei(int amei)
+        public JsonResult EnviarAmei(int codigo, int amei)
         {
             PostsDAO postsDAO = new PostsDAO();
+            PostViewModel post = postsDAO.ConsultaReacao(codigo);
 
-            PostViewModel enviarAmei = new PostViewModel
+            if (post == null)
+                post = postsDAO.ListaReacao().FirstOrDefault();
+
+            if (post != null)
             {
-                Amei = amei,
-            };
-
-            postsDAO.Inserir(enviarAmei);
-            return Json(new { retorno = "Reação de amei enviada com sucesso!" });
-        }*/
+                post.Amei = amei;
+                postsDAO.Alterar(post);
+                return Json(new { retorno = "Reação amei registrada com sucesso!" });
+            }
+            else
+                return Json(new { retorno = "Ocorreu uma falha. Verifique se existe algum post cadastrado." });
+        }
 
         [HttpPut("Posts/RetirarAmei")]
         public JsonResult RetirarAmei(int codigo, int amei)
@@ -192,11 +196,10 @@ namespace AlimentacaoInfantil.Controllers
             {
                 post.Amei = amei;
                 postsDAO.Alterar(post);
-                return Json(new { retorno = "Reação amei registrada com sucesso!" });
+                return Json(new { retorno = "Reação amei removida com sucesso!" });
             }
             else
                 return Json(new { retorno = "Ocorreu uma falha. Verifique se existe algum post cadastrado." });
         }
-
     }
 }
