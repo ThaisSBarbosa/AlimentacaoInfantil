@@ -165,7 +165,7 @@ namespace AlimentacaoInfantil.Controllers
 
         
         [HttpPost("Posts/EnviarAmei")]
-        public JsonResult EnviarAmei(int codigo, int amei)
+        public JsonResult EnviarAmei(int codigo)
         {
             PostsDAO postsDAO = new PostsDAO();
             PostViewModel post = postsDAO.ConsultaReacao(codigo);
@@ -175,7 +175,7 @@ namespace AlimentacaoInfantil.Controllers
 
             if (post != null)
             {
-                post.Amei = amei;
+                post.Amei = post.Amei++;
                 postsDAO.Alterar(post);
                 return Json(new { retorno = "Reação amei registrada com sucesso!" });
             }
@@ -184,7 +184,7 @@ namespace AlimentacaoInfantil.Controllers
         }
 
         [HttpPut("Posts/RetirarAmei")]
-        public JsonResult RetirarAmei(int codigo, int amei)
+        public JsonResult RetirarAmei(int codigo)
         {
             PostsDAO postsDAO = new PostsDAO();
             PostViewModel post = postsDAO.ConsultaReacaoAmei(codigo);
@@ -194,7 +194,7 @@ namespace AlimentacaoInfantil.Controllers
 
             if (post != null)
             {
-                post.Amei = amei;
+                post.Amei = post.Amei--;
                 postsDAO.Alterar(post);
                 return Json(new { retorno = "Reação amei removida com sucesso!" });
             }
@@ -235,7 +235,7 @@ namespace AlimentacaoInfantil.Controllers
             mensagemOriginal.Status = Enums.EnumStatusMensagem.RESPONDIDA;
             mensagemOriginal.DataAtualizacao = DateTime.Now;
 
-            MensagemViewModel mensagemRespondida = new MensagemViewModel
+            MensagemViewModel mensagemResposta = new MensagemViewModel
             {
                 Conteudo = conteudo,
                 CodigoUsuarioRemetente = remetente,
@@ -246,7 +246,7 @@ namespace AlimentacaoInfantil.Controllers
             };
 
             mensagensDAO.Alterar(mensagemOriginal);
-            mensagensDAO.Inserir(mensagemRespondida);
+            mensagensDAO.Inserir(mensagemResposta);
             return Json(new { retorno = "Mensagem respondida com sucesso!" });
 
 
