@@ -127,7 +127,7 @@ namespace AlimentacaoInfantil.Controllers
         }
 
         [HttpPut("Posts/EditarAnuncio")]
-        public JsonResult EditarAnuncios(int codigo, bool anuncio)
+        public JsonResult EditarAnuncio(int codigo, string conteudo)
         {
             PostsDAO postsDAO = new PostsDAO();
             PostViewModel post = postsDAO.ConsultaAnuncios(codigo);
@@ -137,7 +137,7 @@ namespace AlimentacaoInfantil.Controllers
 
             if (post != null)
             {
-                post.Anuncio = anuncio;
+                post.Conteudo = conteudo;
                 postsDAO.Alterar(post);
                 return Json(new { retorno = "Post de código " + post.Codigo + " alterado com sucesso!" });
             }

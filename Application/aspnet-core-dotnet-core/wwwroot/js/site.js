@@ -157,7 +157,7 @@ function editarAnuncio() {
     var request = {
         url: "Posts/EditarAnuncio",
         type: "put",
-        data: '{ codigo: [o primeiro registro do banco], anuncio: true }',
+        data: '{ codigo: [o primeiro registro do banco], conteudo: "novo conteúdo 2" }',
         dataType: "json"
     };
     $.ajax({
@@ -165,7 +165,7 @@ function editarAnuncio() {
         method: "PUT",
         data: {
             codigo: 1,
-            anuncio: true
+            conteudo: "novo conteúdo 2"
         },
         success: function (dados) {
             $("#txtRequest").html(JSON.stringify(request, undefined, 4));
