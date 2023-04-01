@@ -1,4 +1,10 @@
-﻿function executaAPI() {
+$(function () {
+    $("#btnExecutar").click(function () {
+        executaAPI()
+    })
+});
+
+function executaAPI() {
     $("#txtRequest").html("");
     $("#txtResponse").html("");
     var request = $("#cbAPI").val();
@@ -46,19 +52,19 @@
 }
 
 function exibirPosts() {
-    var n = {
+    var request = {
         url: "Posts/ExibirPosts",
         type: "get",
         dataType: "json"
     };
-    $.get("Posts/ExibirPosts", function (t) {
+    $.get("Posts/ExibirPosts", function (dados) {
         $("#txtRequest").html(JSON.stringify(n, undefined, 4));
         $("#txtResponse").html(JSON.stringify(t, undefined, 4))
     }, "json")
 }
 
 function fazerPost() {
-    var n = {
+    var request = {
         url: "Posts/FazerPost",
         type: "post",
         data: '{ conteudo: "Post teste", autor: 2, amei: 0, anuncio: false }',
@@ -68,15 +74,15 @@ function fazerPost() {
         conteudo: "Post teste",
         autor: 2,
         amei: 0,
-        anuncio: !1
-    }, function (t) {
+        anuncio: false
+    }, function (dados) {
         $("#txtRequest").html(JSON.stringify(n, undefined, 4));
         $("#txtResponse").html(JSON.stringify(t, undefined, 4))
     }, "json")
 }
 
 function editarPost() {
-    var n = {
+    var request = {
         url: "Posts/EditarPost",
         type: "put",
         data: '{ codigo: [o primeiro registro do banco], conteudo: "novo conteúdo" }',
@@ -89,7 +95,7 @@ function editarPost() {
             codigo: 1,
             conteudo: "novo conteúdo"
         },
-        success: function (t) {
+        success: function (dados) {
             $("#txtRequest").html(JSON.stringify(n, undefined, 4));
             $("#txtResponse").html(JSON.stringify(t, undefined, 4))
         }
@@ -97,7 +103,7 @@ function editarPost() {
 }
 
 function apagarPost() {
-    var n = {
+    var request = {
         url: "Posts/ApagarPost",
         type: "delete",
         data: "{ codigo: [o primeiro registro do banco] }",
@@ -109,7 +115,7 @@ function apagarPost() {
         data: {
             codigo: 1
         },
-        success: function (t) {
+        success: function (dados) {
             $("#txtRequest").html(JSON.stringify(n, undefined, 4));
             $("#txtResponse").html(JSON.stringify(t, undefined, 4))
         }
@@ -132,9 +138,18 @@ function enviarMensagem() { }
 
 function responderMensagem() { }
 
-function conectarSePaiMae() { }
-$(function () {
-    $("#btnExecutar").click(function () {
-        executaAPI()
-    })
-});
+function conectarSePaiMae() {
+    var request = {
+        url: "Conexoes/ConectarSeAUmPai",
+        type: "post",
+        data: "{usuario1: [usuario criado para este teste], usuario2: [usuario criado para este teste]}",
+        dataType: "json"
+    };
+    $.post("Conexoes/ConectarSeAUmPai", {
+        usuario1: 1,
+        usuario2: 2
+    }, function (dados) {
+        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+    }, "json")
+}

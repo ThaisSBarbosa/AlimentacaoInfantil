@@ -51,9 +51,9 @@ namespace AlimentacaoInfantil.DAO
 
 
 
-        public ConexaoViewModel Consulta(int id)
+        public ConexaoViewModel ConsultaConexao(int id1, int id2)
         {
-            string sql = "select * from tbConexoes where con_codigo = " + id;
+            string sql = "select * from tbConexoes where concat(usr_codigo_1 + usr_codigo_2) = " + id1 + id2 + " or " + id2 + id1;
             DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
             if (tabela.Rows.Count == 0)
                 return null;
