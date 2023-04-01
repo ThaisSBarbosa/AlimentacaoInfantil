@@ -17,5 +17,7 @@ namespace AlimentacaoInfantil.Models
 
         public DateTime DataAtualizacao { get; set; }
 
+        public int RespondendoMensagem { get; set; }
+
     }
 }

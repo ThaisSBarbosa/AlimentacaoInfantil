@@ -134,7 +134,22 @@ function enviarAmei() { }
 
 function retirarAmei() { }
 
-function enviarMensagem() { }
+function enviarMensagem() {
+    var request = {
+        url: "Posts/EnviarMensagem",
+        type: "post",
+        data: '{ conteudo: "Envia mensagem qualquer", remetente: 1, destinatario: 2 }',
+        dataType: "json"
+    };
+    $.post("Posts/EnviarMensagem", {
+        conteudo: "Envia mensagem qualquer",
+        remetente: 1,
+        destinatario: 2
+    }, function (dados) {
+        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+    }, "json")
+}
 
 function responderMensagem() { }
 

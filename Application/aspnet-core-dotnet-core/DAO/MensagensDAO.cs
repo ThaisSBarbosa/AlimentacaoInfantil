@@ -19,6 +19,7 @@ namespace AlimentacaoInfantil.DAO
                 new MySqlParameter("usr_codigo_destinatario", mensagem.CodigoUsuarioDestinatario),
                 new MySqlParameter("msg_status", mensagem.Status),
                 new MySqlParameter("msg_data_atualizacao", mensagem.DataAtualizacao),
+                new MySqlParameter("msg_respondendo_a_mensagem", mensagem.RespondendoMensagem),
             };
 
             return p;
@@ -32,12 +33,14 @@ namespace AlimentacaoInfantil.DAO
                 "usr_codigo_remetente, " +
                 "usr_codigo_destinatario, " +
                 "msg_status, " +
-                "msg_data_atualizacao) " +
+                "msg_data_atualizacao, " +
+                "msg_respondendo_a_mensagem)" +
                     "values (@msg_conteudo, " +
                     "@usr_codigo_remetente, " +
                     "@usr_codigo_destinatario, " +
                     "@msg_status, " +
-                    "@msg_data_atualizacao)";
+                    "@msg_data_atualizacao, " +
+                    "@msg_respondendo_a_mensagem)";
 
             HelperDAO.ExecutaSQL(sql, CriaParametros(mensagem));
         }
@@ -50,7 +53,8 @@ namespace AlimentacaoInfantil.DAO
                 "usr_codigo_remetente = @usr_codigo_remetente, " +
                 "usr_codigo_destinatario = @usr_codigo_destinatario, " +
                 "msg_status = @msg_status, " +
-                "msg_data_atualizacao = @msg_data_atualizacao " +
+                "msg_data_atualizacao = @msg_data_atualizacao, " +
+                "msg_respondendo_a_mensagem = @msg_respondendo_a_mensagem " +
                 "where msg_codigo  = @msg_codigo";
             HelperDAO.ExecutaSQL(sql, CriaParametros(mensagem));
         }
@@ -98,6 +102,7 @@ namespace AlimentacaoInfantil.DAO
             Mensagem.CodigoUsuarioDestinatario = Convert.ToInt32(registro["usr_codigo_destinatario"]);
             Mensagem.Status = (EnumStatusMensagem)Convert.ToInt32(registro["msg_status"]);
             Mensagem.DataAtualizacao = Convert.ToDateTime(registro["msg_data_atualizacao"]);
+            Mensagem.RespondendoMensagem = Convert.ToInt32(registro["msg_respondendo_a_mensagem"]);
             return Mensagem;
         }
 
