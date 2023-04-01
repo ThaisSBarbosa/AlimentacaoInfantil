@@ -27,20 +27,12 @@ namespace AlimentacaoInfantil.Controllers
         }
 
 
+        /*
         [HttpPost("Mensagens/EnviarMensagem")]
         public JsonResult EnviarMensagem(string conteudo)
         {
-            MensagensDAO MensagensDAO = new MensagensDAO();
 
-            MensagemViewModel mensagem = new MensagemViewModel
-            {
-                Conteudo = conteudo,
-                DataAtualizacao = DateTime.Now
-            };
-
-            MensagensDAO.Inserir(mensagem);
-            return Json(new { retorno = "Mensagem enviada com sucesso!" });
-        }
+        }*/
 
     }
 
