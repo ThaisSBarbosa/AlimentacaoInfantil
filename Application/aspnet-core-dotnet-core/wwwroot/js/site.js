@@ -1,4 +1,4 @@
-﻿$(function () {
+$(function () {
     $("#btnExecutar").click(function () {
         executaAPI()
     })

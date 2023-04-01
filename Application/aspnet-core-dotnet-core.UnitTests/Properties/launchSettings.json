@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "aspnet-core-dotnet-core.UnitTests": {
+      "commandName": "Project"
+    },
+    "WSL 2": {
+      "commandName": "WSL2",
+      "environmentVariables": {},
+      "distributionName": ""
+    }
+  }
+}

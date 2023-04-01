@@ -72,6 +72,16 @@ namespace AlimentacaoInfantil.DAO
                 return MontaModel(tabela.Rows[0]);
         }
 
+        public PostViewModel ConsultaAnuncios(int id)
+        {
+            string sql = "select * from tbPosts where pst_codigo = " + id + " and pst_anuncio = true";
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            if (tabela.Rows.Count == 0)
+                return null;
+            else
+                return MontaModel(tabela.Rows[0]);
+        }
+
 
         public List<PostViewModel> Lista()
         {
@@ -87,6 +97,19 @@ namespace AlimentacaoInfantil.DAO
             return retorno;
         }
 
+        public List<PostViewModel> ListaAnuncios()
+        {
+            string sql = "select * from tbPosts where pst_anuncio = true";
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            List<PostViewModel> retorno = new List<PostViewModel>();
+
+            foreach (DataRow registro in tabela.Rows)
+            {
+                retorno.Add(MontaModel(registro));
+            }
+
+            return retorno;
+        }
 
         public static PostViewModel MontaModel(DataRow registro)
         {
