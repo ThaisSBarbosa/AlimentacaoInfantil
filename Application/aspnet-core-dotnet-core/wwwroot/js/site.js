@@ -58,8 +58,8 @@ function exibirPosts() {
         dataType: "json"
     };
     $.get("Posts/ExibirPosts", function (dados) {
-        $("#txtRequest").html(JSON.stringify(n, undefined, 4));
-        $("#txtResponse").html(JSON.stringify(t, undefined, 4))
+        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
     }, "json")
 }
 
@@ -76,8 +76,8 @@ function fazerPost() {
         amei: 0,
         anuncio: false
     }, function (dados) {
-        $("#txtRequest").html(JSON.stringify(n, undefined, 4));
-        $("#txtResponse").html(JSON.stringify(t, undefined, 4))
+        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
     }, "json")
 }
 
@@ -96,8 +96,8 @@ function editarPost() {
             conteudo: "novo conteúdo"
         },
         success: function (dados) {
-            $("#txtRequest").html(JSON.stringify(n, undefined, 4));
-            $("#txtResponse").html(JSON.stringify(t, undefined, 4))
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
         }
     })
 }
@@ -116,8 +116,8 @@ function apagarPost() {
             codigo: 1
         },
         success: function (dados) {
-            $("#txtRequest").html(JSON.stringify(n, undefined, 4));
-            $("#txtResponse").html(JSON.stringify(t, undefined, 4))
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
         }
     })
 }
