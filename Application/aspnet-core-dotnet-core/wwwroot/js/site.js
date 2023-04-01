@@ -236,13 +236,13 @@ function retirarAmei() {
 
 function enviarMensagem() {
     var request = {
-        url: "Posts/EnviarMensagem",
+        url: "Mensagens/EnviarMensagem",
         type: "post",
-        data: '{ conteudo: "Envia mensagem qualquer", remetente: 1, destinatario: 2 }',
+        data: '{ conteudo: "Envia mensagem", remetente: 1, destinatario: 2 }',
         dataType: "json"
     };
-    $.post("Posts/EnviarMensagem", {
-        conteudo: "Envia mensagem qualquer",
+    $.post("Mensagens/EnviarMensagem", {
+        conteudo: "Envia mensagem",
         remetente: 1,
         destinatario: 2
     }, function (dados) {
@@ -253,14 +253,14 @@ function enviarMensagem() {
 
 function responderMensagem() {
     var request = {
-        url: "Posts/ResponderMensagem",
+        url: "Mensagens/ResponderMensagem",
         type: "post",
-        data: '{ codigo: 1, conteudo: "Respondendo mensagem qualquer", remetente: 2, destinatario: 1 }',
+        data: '{ codigo: 1, conteudo: "Respondendo mensagem", remetente: 2, destinatario: 1 }',
         dataType: "json"
     };
-    $.post("Posts/ResponderMensagem", {
+    $.post("Mensagens/ResponderMensagem", {
         codigo: 1,
-        conteudo: "Respondendo mensagem qualquer",
+        conteudo: "Respondendo mensagem",
         remetente: 2,
         destinatario: 1
     }, function (dados) {

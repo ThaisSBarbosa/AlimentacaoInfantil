@@ -201,55 +201,5 @@ namespace AlimentacaoInfantil.Controllers
             else
                 return Json(new { retorno = "Ocorreu uma falha. Verifique se existe algum post cadastrado." });
         }
-
-        [HttpPost("Posts/EnviarMensagem")]
-        public JsonResult EnviarMensagem(string conteudo, int remetente, int destinatario)
-        {
-            MensagensDAO mensagensDAO = new MensagensDAO();
-
-            MensagemViewModel mensagem = new MensagemViewModel
-            {
-                Conteudo = conteudo,
-                CodigoUsuarioRemetente = remetente,
-                CodigoUsuarioDestinatario = destinatario,
-                Status = Enums.EnumStatusMensagem.ENVIADA,
-                DataAtualizacao = DateTime.Now,
-            };
-
-            mensagensDAO.Inserir(mensagem);
-            return Json(new { retorno = "Mensagem enviada com sucesso!" });
-        }
-
-        [HttpPost("Posts/ResponderMensagem")]
-        public JsonResult ResponderMensagem(int codigo, string conteudo, int remetente, int destinatario)
-        {
-            MensagensDAO mensagensDAO = new MensagensDAO();
-
-            MensagemViewModel mensagemOriginal = mensagensDAO.Consulta(codigo);
-
-            if (mensagemOriginal == null)
-            {
-                return Json(new { retorno = "Ocorreu uma falha. Verifique se existe alguma mensagem original." });
-
-            }
-            mensagemOriginal.Status = Enums.EnumStatusMensagem.RESPONDIDA;
-            mensagemOriginal.DataAtualizacao = DateTime.Now;
-
-            MensagemViewModel mensagemResposta = new MensagemViewModel
-            {
-                Conteudo = conteudo,
-                CodigoUsuarioRemetente = remetente,
-                CodigoUsuarioDestinatario = destinatario,
-                Status = Enums.EnumStatusMensagem.ENVIADA,
-                DataAtualizacao = DateTime.Now,
-                RespondendoMensagem = mensagemOriginal.Codigo
-            };
-
-            mensagensDAO.Alterar(mensagemOriginal);
-            mensagensDAO.Inserir(mensagemResposta);
-            return Json(new { retorno = "Mensagem respondida com sucesso!" });
-
-
-        }
     }
 }
