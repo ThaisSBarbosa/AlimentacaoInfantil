@@ -177,8 +177,26 @@ namespace AlimentacaoInfantil.Controllers
 
             postsDAO.Inserir(enviarAmei);
             return Json(new { retorno = "Reação de amei enviada com sucesso!" });
+        }*/
+
+        [HttpPut("Posts/RetirarAmei")]
+        public JsonResult RetirarAmei(int codigo, int amei)
+        {
+            PostsDAO postsDAO = new PostsDAO();
+            PostViewModel post = postsDAO.ConsultaReacaoAmei(codigo);
+
+            if (post == null)
+                post = postsDAO.ListaReacaoAmei().FirstOrDefault();
+
+            if (post != null)
+            {
+                post.Amei = amei;
+                postsDAO.Alterar(post);
+                return Json(new { retorno = "Reação amei registrada com sucesso!" });
+            }
+            else
+                return Json(new { retorno = "Ocorreu uma falha. Verifique se existe algum post cadastrado." });
         }
-        */
 
     }
 }
