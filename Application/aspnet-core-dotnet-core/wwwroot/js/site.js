@@ -201,27 +201,37 @@ function enviarAmei() {
         data: '{ codigo: [o primeiro registro do banco] }',
         dataType: "json"
     };
-    $.post("Posts/EnviarAmei", {
-        codigo: 1
-    }, function (dados) {
-        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
-        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
-    }, "json")
+    $.ajax({
+        url: "Posts/EnviarAmei",
+        method: "PUT",
+        data: {
+            codigo: 1
+        },
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    })
 }
 
 function retirarAmei() {
     var request = {
         url: "Posts/RetirarAmei",
-        type: "post",
+        type: "put",
         data: '{ codigo: [o primeiro registro do banco] }',
         dataType: "json"
     };
-    $.post("Posts/RetirarAmei", {
-        codigo: 1
-    }, function (dados) {
-        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
-        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
-    }, "json")
+    $.ajax({
+        url: "Posts/RetirarAmei",
+        method: "PUT",
+        data: {
+            codigo: 1
+        },
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    })
 }
 
 function enviarMensagem() {

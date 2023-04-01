@@ -164,7 +164,7 @@ namespace AlimentacaoInfantil.Controllers
         }
 
         
-        [HttpPost("Posts/EnviarAmei")]
+        [HttpPut("Posts/EnviarAmei")]
         public JsonResult EnviarAmei(int codigo)
         {
             PostsDAO postsDAO = new PostsDAO();
@@ -175,7 +175,7 @@ namespace AlimentacaoInfantil.Controllers
 
             if (post != null)
             {
-                post.Amei = post.Amei++;
+                post.Amei++;
                 postsDAO.Alterar(post);
                 return Json(new { retorno = "Reação amei registrada com sucesso!" });
             }
@@ -194,7 +194,7 @@ namespace AlimentacaoInfantil.Controllers
 
             if (post != null)
             {
-                post.Amei = post.Amei--;
+                post.Amei--;
                 postsDAO.Alterar(post);
                 return Json(new { retorno = "Reação amei removida com sucesso!" });
             }
