@@ -16,6 +16,11 @@ namespace AlimentacaoInfantil.Controllers
             return View(); 
         }
 
+        public IActionResult HomeYummy()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

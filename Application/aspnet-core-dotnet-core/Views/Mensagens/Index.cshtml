@@ -1,8 +1,53 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Mensagens";
 }
+@{
+    Layout = "_LayoutYummy";
+}
+<!-- ======= MENSAGENS ======= -->
+<br />
+<section id="mensagens" class="book-a-table">
+    <div class="container" data-aos="fade-up">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+        <div class="section-header">
+            <h2>Mensagem</h2>
+            <p>Envie <span>uma mensagem</span></p>
+        </div>
+
+        <div class="row g-0">
+
+            <div class="col-lg-4 reservation-img" style="background-image: url(/Yummy/assets/img/smoothie.jpg); background-size: cover; " data-aos="zoom-out" data-aos-delay="200"></div>
+
+            <div class="col-lg-8 align-items-center reservation-form-bg">
+                <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+                    <div class="row gy-4">
+                        <div class="col-lg-6 col-md-6">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Seu nome" data-rule="minlen:4" data-msg="Digite pelo menos 4 caracteres.">
+                            <div class="validate"></div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Seu email" data-rule="email" data-msg="Informe um email válido.">
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <div class="col-lg-12 col-md-6 pb-3">
+                            <input type="text" class="form-control" name="assunto" id="assunto" placeholder="Assunto" data-rule="minlen:4" data-msg="Informe o assunto.">
+                            <div class="validate"></div>
+                        </div> 
+                        <textarea class="form-control" name="message" rows="10" placeholder="Digite uma mensagem"></textarea>
+                        <div class="validate"></div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="loading">Loading</div>
+                        <div class="error-message"></div>
+                        <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
+                    </div>
+                    <div class="text-center"><button type="submit">Enviar</button></div>
+                </form>
+            </div><!-- End Reservation Form -->
+
+        </div>
+
+    </div>
+</section><!-- End Book A Table Section -->
