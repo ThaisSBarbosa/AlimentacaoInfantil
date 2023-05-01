@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace AlimentacaoInfantil.Controllers
 {
@@ -16,6 +17,7 @@ namespace AlimentacaoInfantil.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.StrCon = _config.GetSection("ConnectionString").Value;
             return View();
         }
 
