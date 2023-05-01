@@ -2,14 +2,21 @@
 using AlimentacaoInfantil.Enums;
 using AlimentacaoInfantil.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace AlimentacaoInfantil.Controllers
 {
     public class ConexoesController : Controller
     {
+        private readonly IConfiguration _config;
+
+        public ConexoesController(IConfiguration configuration)
+        {
+            _config = configuration;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -29,8 +36,8 @@ namespace AlimentacaoInfantil.Controllers
         [HttpPost("Conexoes/ConectarSeAUmPai")]
         public JsonResult ConectarSeAUmPai(int usuario1, int usuario2)
         {
-            ConexaoDAO conexaoDAO = new ConexaoDAO();
-            UsuariosDAO usuarioDAO = new UsuariosDAO();
+            ConexaoDAO conexaoDAO = new ConexaoDAO(_config);
+            UsuariosDAO usuarioDAO = new UsuariosDAO(_config);
 
             // crio dois usuarios para não ficar tentando conectar dois usuarios ja conectados 
             UsuarioViewModel novoUsuario1 = new UsuarioViewModel

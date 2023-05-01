@@ -1,6 +1,7 @@
 ﻿using AlimentacaoInfantil.DAO;
 using AlimentacaoInfantil.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +11,13 @@ namespace AlimentacaoInfantil.Controllers
 {
     public class PostsController : Controller
     {
+        private readonly IConfiguration _config;
+
+        public PostsController(IConfiguration configuration)
+        {
+            _config = configuration;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -30,7 +38,7 @@ namespace AlimentacaoInfantil.Controllers
         public JsonResult ExibirPosts()
         {
             List<PostViewModel> listaPosts;
-            PostsDAO postsDAO = new PostsDAO();
+            PostsDAO postsDAO = new PostsDAO(_config);
             listaPosts = postsDAO.Lista();
 
             if (listaPosts.Count == 0)
@@ -42,7 +50,7 @@ namespace AlimentacaoInfantil.Controllers
         [HttpPost("Posts/FazerPost")]
         public JsonResult FazerPost(string conteudo, int autor, int amei, bool anuncio)
         {
-            PostsDAO postsDAO = new PostsDAO();
+            PostsDAO postsDAO = new PostsDAO(_config);
 
             PostViewModel post = new PostViewModel
             {
@@ -60,7 +68,7 @@ namespace AlimentacaoInfantil.Controllers
         [HttpPut("Posts/EditarPost")]
         public JsonResult EditarPost(int codigo, string conteudo)
         {
-            PostsDAO postsDAO = new PostsDAO();
+            PostsDAO postsDAO = new PostsDAO(_config);
             PostViewModel post = postsDAO.Consulta(codigo);
 
             if (post == null)
@@ -80,7 +88,7 @@ namespace AlimentacaoInfantil.Controllers
         [HttpDelete("Posts/ApagarPost")]
         public JsonResult ApagarPost(int codigo)
         {
-            PostsDAO postsDAO = new PostsDAO();
+            PostsDAO postsDAO = new PostsDAO(_config);
             PostViewModel post = postsDAO.Consulta(codigo);
 
             if (post == null)
@@ -99,7 +107,7 @@ namespace AlimentacaoInfantil.Controllers
         public JsonResult ExibirAnuncios()
         {
             List<PostViewModel> listaAnuncios;
-            PostsDAO postsDAO = new PostsDAO();
+            PostsDAO postsDAO = new PostsDAO(_config);
             listaAnuncios = postsDAO.ListaAnuncios();
 
             if (listaAnuncios.Count == 0)
@@ -111,7 +119,7 @@ namespace AlimentacaoInfantil.Controllers
         [HttpPost("Posts/FazerAnuncio")]
         public JsonResult FazerAnuncios(string conteudo, int autor, int amei)
         {
-            PostsDAO postsDAO = new PostsDAO();
+            PostsDAO postsDAO = new PostsDAO(_config);
 
             PostViewModel post = new PostViewModel
             {
@@ -129,7 +137,7 @@ namespace AlimentacaoInfantil.Controllers
         [HttpPut("Posts/EditarAnuncio")]
         public JsonResult EditarAnuncio(int codigo, string conteudo)
         {
-            PostsDAO postsDAO = new PostsDAO();
+            PostsDAO postsDAO = new PostsDAO(_config);
             PostViewModel post = postsDAO.ConsultaAnuncios(codigo);
 
             if (post == null)
@@ -148,7 +156,7 @@ namespace AlimentacaoInfantil.Controllers
         [HttpDelete("Posts/ApagarAnuncio")]
         public JsonResult ApagarAnuncio(int codigo)
         {
-            PostsDAO postsDAO = new PostsDAO();
+            PostsDAO postsDAO = new PostsDAO(_config);
             PostViewModel post = postsDAO.ConsultaAnuncios(codigo);
 
             if (post == null)
@@ -167,7 +175,7 @@ namespace AlimentacaoInfantil.Controllers
         [HttpPut("Posts/EnviarAmei")]
         public JsonResult EnviarAmei(int codigo)
         {
-            PostsDAO postsDAO = new PostsDAO();
+            PostsDAO postsDAO = new PostsDAO(_config);
             PostViewModel post = postsDAO.Consulta(codigo);
 
             if (post == null)
@@ -187,7 +195,7 @@ namespace AlimentacaoInfantil.Controllers
         [HttpPut("Posts/RetirarAmei")]
         public JsonResult RetirarAmei(int codigo)
         {
-            PostsDAO postsDAO = new PostsDAO();
+            PostsDAO postsDAO = new PostsDAO(_config);
             PostViewModel post = postsDAO.Consulta(codigo);
 
             if (post == null)

@@ -1,11 +1,19 @@
 ﻿using AlimentacaoInfantil.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
 
 namespace AlimentacaoInfantil.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration _config;    
+
+        public HomeController(IConfiguration configuration)
+        {
+            _config = configuration;
+        }
+
         public IActionResult Index()
         {
             return View();

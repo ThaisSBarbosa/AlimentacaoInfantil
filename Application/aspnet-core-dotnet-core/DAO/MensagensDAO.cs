@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Data;
 using AlimentacaoInfantil.Enums;
 using AlimentacaoInfantil.Models;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 
 namespace AlimentacaoInfantil.DAO
 {
     public class MensagensDAO : IDisposable
     {
+        private readonly IConfiguration _config;
+
+        public MensagensDAO(IConfiguration configuration)
+        {
+            _config = configuration;
+        }
 
         private MySqlParameter[] CriaParametros(MensagemViewModel mensagem)
         {
@@ -42,7 +49,7 @@ namespace AlimentacaoInfantil.DAO
                     "@msg_data_atualizacao, " +
                     "@msg_respondendo_a_mensagem)";
 
-            HelperDAO.ExecutaSQL(sql, CriaParametros(mensagem));
+            HelperDAO.ExecutaSQL(sql, CriaParametros(mensagem), _config);
         }
 
 
@@ -56,13 +63,13 @@ namespace AlimentacaoInfantil.DAO
                 "msg_data_atualizacao = @msg_data_atualizacao, " +
                 "msg_respondendo_a_mensagem = @msg_respondendo_a_mensagem " +
                 "where msg_codigo  = @msg_codigo";
-            HelperDAO.ExecutaSQL(sql, CriaParametros(mensagem));
+            HelperDAO.ExecutaSQL(sql, CriaParametros(mensagem), _config);
         }
 
         public void Excluir(int id)
         {
             string sql = "delete from tbMensagens where msg_codigo = " + id;
-            HelperDAO.ExecutaSQL(sql, null);
+            HelperDAO.ExecutaSQL(sql, null, _config);
         }
 
 
@@ -70,7 +77,7 @@ namespace AlimentacaoInfantil.DAO
         public MensagemViewModel Consulta(int id)
         {
             string sql = "select * from tbMensagens where msg_codigo = " + id;
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
             if (tabela.Rows.Count == 0)
                 return null;
             else
@@ -81,7 +88,7 @@ namespace AlimentacaoInfantil.DAO
         public List<MensagemViewModel> Lista()
         {
             string sql = "select * from tbMensagens";
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
             List<MensagemViewModel> retorno = new List<MensagemViewModel>();
 
             foreach (DataRow registro in tabela.Rows)

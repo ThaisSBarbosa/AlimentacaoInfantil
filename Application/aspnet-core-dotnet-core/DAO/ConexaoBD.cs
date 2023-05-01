@@ -1,18 +1,18 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
 
 namespace AlimentacaoInfantil.DAO
 {
     public static class ConexaoBD
     {
         /// <summary>
-        /// Método Estático que retorna um conexao aberta com o BD
+        /// Método estático que retorna um conexao aberta com o BD.
         /// </summary>
         /// <returns>Conexão aberta</returns>
-        public static MySqlConnection GetConexao()
+        public static MySqlConnection GetConexao(IConfiguration config)
         {
-            //string strCon = "Data Source=fesa-alimentacaoinfantil.mysql.database.azure.com\\fesa; Database=alimentacaoinfantil; integrated security=true";
-            string strCon = "server=fesa-alimentacaoinfantil.mysql.database.azure.com;uid=fesa;pwd=Grupoprojeto@ec8;database=alimentacaoinfantil";
-            MySqlConnection conexao = new MySqlConnection(strCon);
+            string strConn = config.GetSection("ConnectionString").Value;
+            MySqlConnection conexao = new MySqlConnection(strConn);
             conexao.Open();
             return conexao;
         }
