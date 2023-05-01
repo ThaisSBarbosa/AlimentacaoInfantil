@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using System.Data;
 using AlimentacaoInfantil.Models;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 
 namespace AlimentacaoInfantil.DAO
 {
     public class PostsDAO: IDisposable
     {
+        private readonly IConfiguration _config;
+
+        public PostsDAO(IConfiguration configuration)
+        {
+            _config = configuration;
+        }
 
         private MySqlParameter[] CriaParametros(PostViewModel post)
         {
@@ -38,7 +45,7 @@ namespace AlimentacaoInfantil.DAO
                     "@pst_anuncio, " +
                     "@pst_data)";
 
-            HelperDAO.ExecutaSQL(sql, CriaParametros(post));
+            HelperDAO.ExecutaSQL(sql, CriaParametros(post), _config);
         }
 
 
@@ -51,13 +58,13 @@ namespace AlimentacaoInfantil.DAO
                 "pst_anuncio = @pst_anuncio, " +
                 "pst_data = @pst_data " +
                 "where pst_codigo  = @pst_codigo";
-            HelperDAO.ExecutaSQL(sql, CriaParametros(post));
+            HelperDAO.ExecutaSQL(sql, CriaParametros(post), _config);
         }
 
         public void Excluir(int id)
         {
             string sql = "delete from tbPosts where pst_codigo = " + id;
-            HelperDAO.ExecutaSQL(sql, null);
+            HelperDAO.ExecutaSQL(sql, null, _config);
         }
 
 
@@ -65,7 +72,7 @@ namespace AlimentacaoInfantil.DAO
         public PostViewModel Consulta(int id)
         {
             string sql = "select * from tbPosts where pst_codigo = " + id;
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
             if (tabela.Rows.Count == 0)
                 return null;
             else
@@ -75,7 +82,7 @@ namespace AlimentacaoInfantil.DAO
         public PostViewModel ConsultaAnuncios(int id)
         {
             string sql = "select * from tbPosts where pst_codigo = " + id + " and pst_anuncio = true";
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
             if (tabela.Rows.Count == 0)
                 return null;
             else
@@ -85,7 +92,7 @@ namespace AlimentacaoInfantil.DAO
         public PostViewModel ConsultaReacao(int id)
         {
             string sql = "select * from tbPosts where pst_codigo = " + id + " and pst_amei = 0";
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
             if (tabela.Rows.Count == 0)
                 return null;
             else
@@ -95,7 +102,7 @@ namespace AlimentacaoInfantil.DAO
         public PostViewModel ConsultaReacaoAmei(int id)
         {
             string sql = "select * from tbPosts where pst_codigo = " + id + " and pst_amei = 1";
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
             if (tabela.Rows.Count == 0)
                 return null;
             else
@@ -105,7 +112,7 @@ namespace AlimentacaoInfantil.DAO
         public List<PostViewModel> Lista()
         {
             string sql = "select * from tbPosts";
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
             List<PostViewModel> retorno = new List<PostViewModel>();
 
             foreach (DataRow registro in tabela.Rows)
@@ -119,7 +126,7 @@ namespace AlimentacaoInfantil.DAO
         public List<PostViewModel> ListaAnuncios()
         {
             string sql = "select * from tbPosts where pst_anuncio = true";
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
             List<PostViewModel> retorno = new List<PostViewModel>();
 
             foreach (DataRow registro in tabela.Rows)
@@ -133,7 +140,7 @@ namespace AlimentacaoInfantil.DAO
         public List<PostViewModel> ListaReacao()
         {
             string sql = "select * from tbPosts where pst_amei = 0";
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
             List<PostViewModel> retorno = new List<PostViewModel>();
 
             foreach (DataRow registro in tabela.Rows)
@@ -147,7 +154,7 @@ namespace AlimentacaoInfantil.DAO
         public List<PostViewModel> ListaReacaoAmei()
         {
             string sql = "select * from tbPosts where pst_amei = 1";
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
             List<PostViewModel> retorno = new List<PostViewModel>();
 
             foreach (DataRow registro in tabela.Rows)

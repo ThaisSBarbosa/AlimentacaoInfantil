@@ -19,6 +19,13 @@ namespace aspnet_core_dotnet_core
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                      logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                      logging.AddConsole();
+                      logging.AddDebug();
+                      logging.AddEventSourceLogger();
+                });
     }
 }

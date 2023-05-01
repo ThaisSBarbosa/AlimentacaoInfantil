@@ -1,6 +1,7 @@
 ﻿using AlimentacaoInfantil.DAO;
 using AlimentacaoInfantil.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +11,13 @@ namespace AlimentacaoInfantil.Controllers
 {
     public class MensagensController : Controller
     {
+        private readonly IConfiguration _config;
+
+        public MensagensController(IConfiguration configuration)
+        {
+            _config = configuration;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -31,7 +39,7 @@ namespace AlimentacaoInfantil.Controllers
         [HttpPost("Mensagens/EnviarMensagem")]
         public JsonResult EnviarMensagem(string conteudo, int remetente, int destinatario)
         {
-            MensagensDAO mensagensDAO = new MensagensDAO();
+            MensagensDAO mensagensDAO = new MensagensDAO(_config);
 
             MensagemViewModel mensagem = new MensagemViewModel
             {
@@ -49,7 +57,7 @@ namespace AlimentacaoInfantil.Controllers
         [HttpPost("Mensagens/ResponderMensagem")]
         public JsonResult ResponderMensagem(int codigo, string conteudo, int remetente, int destinatario)
         {
-            MensagensDAO mensagensDAO = new MensagensDAO();
+            MensagensDAO mensagensDAO = new MensagensDAO(_config);
 
             MensagemViewModel mensagemOriginal = mensagensDAO.Consulta(codigo);
             if (mensagemOriginal == null)

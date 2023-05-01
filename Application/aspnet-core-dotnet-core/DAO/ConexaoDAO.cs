@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Data;
 using AlimentacaoInfantil.Enums;
 using AlimentacaoInfantil.Models;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 
 namespace AlimentacaoInfantil.DAO
 {
     public class ConexaoDAO : IDisposable
     {
+        private readonly IConfiguration _config;
+
+        public ConexaoDAO(IConfiguration configuration)
+        {
+            _config = configuration;
+        }
 
         private MySqlParameter[] CriaParametros(ConexaoViewModel mensagem)
         {
@@ -30,7 +37,7 @@ namespace AlimentacaoInfantil.DAO
                     "values (@usr_codigo_1, " +
                     "@usr_codigo_2)";
 
-            HelperDAO.ExecutaSQL(sql, CriaParametros(mensagem));
+            HelperDAO.ExecutaSQL(sql, CriaParametros(mensagem), _config);
         }
 
 
@@ -40,13 +47,13 @@ namespace AlimentacaoInfantil.DAO
                 "usr_codigo_1 = @usr_codigo_1, " +
                 "usr_codigo_2 = @usr_codigo_2, " +
                 "where con_codigo  = @con_codigo";
-            HelperDAO.ExecutaSQL(sql, CriaParametros(mensagem));
+            HelperDAO.ExecutaSQL(sql, CriaParametros(mensagem), _config);
         }
 
         public void Excluir(int id)
         {
             string sql = "delete from tbConexoes where con_codigo = " + id;
-            HelperDAO.ExecutaSQL(sql, null);
+            HelperDAO.ExecutaSQL(sql, null, _config);
         }
 
 
@@ -54,7 +61,7 @@ namespace AlimentacaoInfantil.DAO
         public ConexaoViewModel ConsultaConexao(int id1, int id2)
         {
             string sql = "select * from tbConexoes where concat(usr_codigo_1 + usr_codigo_2) = " + id1 + id2 + " or " + id2 + id1;
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
             if (tabela.Rows.Count == 0)
                 return null;
             else
@@ -65,7 +72,7 @@ namespace AlimentacaoInfantil.DAO
         public List<ConexaoViewModel> Lista()
         {
             string sql = "select * from tbConexoes";
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
             List<ConexaoViewModel> retorno = new List<ConexaoViewModel>();
 
             foreach (DataRow registro in tabela.Rows)
