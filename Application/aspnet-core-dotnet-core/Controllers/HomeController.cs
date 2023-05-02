@@ -19,9 +19,6 @@ namespace AlimentacaoInfantil.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Secret = Environment.GetEnvironmentVariable(Constantes.SECRET_KEY)
-                + "1) " + Environment.GetEnvironmentVariable("ASPNETCORE_SecretKey")
-                + "2) " + Environment.GetEnvironmentVariable("APPSETTING_SecretKey");
             return View();
         }
 

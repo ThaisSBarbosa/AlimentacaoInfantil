@@ -15,7 +15,18 @@ namespace aspnet_core_dotnet_core.Utils
         public JwtService(IConfiguration configuration)
         {
             _config = configuration;
-            secretKey = _config.GetSection(Constantes.SECRET_KEY).Value;
+            secretKey = GetSecretKey();
+        }
+
+        public string GetSecretKey()
+        {
+            string secretKey;
+
+            secretKey = _config.GetSection(Constantes.SECRET_KEY_LOCAL).Value;
+            if (string.IsNullOrEmpty(secretKey))
+                secretKey = _config.GetSection(Constantes.SECRET_KEY_AZURE).Value;
+
+            return secretKey;
         }
 
         public string GenerateToken(string username)
