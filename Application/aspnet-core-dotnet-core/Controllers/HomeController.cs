@@ -1,6 +1,7 @@
 ﻿using AlimentacaoInfantil.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Diagnostics;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 
@@ -17,7 +18,7 @@ namespace AlimentacaoInfantil.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.StrCon = _config.GetSection("ConnectionString").Value;
+            ViewBag.StrCon = Environment.GetEnvironmentVariable("ConnectionString");
             return View();
         }
 
