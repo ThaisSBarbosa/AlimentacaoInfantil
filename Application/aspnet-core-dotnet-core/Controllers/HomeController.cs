@@ -1,4 +1,5 @@
 ﻿using AlimentacaoInfantil.Models;
+using aspnet_core_dotnet_core.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -18,6 +19,7 @@ namespace AlimentacaoInfantil.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Secret = Environment.GetEnvironmentVariable(Constantes.SECRET_KEY);
             return View();
         }
 
