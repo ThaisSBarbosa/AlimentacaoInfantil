@@ -10,7 +10,7 @@ namespace AlimentacaoInfantil.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IConfiguration _config;    
+        private readonly IConfiguration _config;
 
         public HomeController(IConfiguration configuration)
         {
@@ -19,13 +19,15 @@ namespace AlimentacaoInfantil.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Secret = Environment.GetEnvironmentVariable(Constantes.SECRET_KEY);
+            ViewBag.Secret = Environment.GetEnvironmentVariable(Constantes.SECRET_KEY)
+                + "1) " + Environment.GetEnvironmentVariable("ASPNETCORE_SecretKey")
+                + "2) " + Environment.GetEnvironmentVariable("APPSETTING_SecretKey");
             return View();
         }
 
         public IActionResult Privacy()
         {
-            return View(); 
+            return View();
         }
 
         public IActionResult HomeYummy()
