@@ -18,7 +18,8 @@ namespace AlimentacaoInfantil.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.StrCon = Environment.GetEnvironmentVariable("ConnectionString");
+            ViewBag.StrCon = Environment.GetEnvironmentVariable("MYSQLCONNSTR_ConnectionString") +
+                Environment.GetEnvironmentVariable("ConnectionString");
             return View();
         }
 
