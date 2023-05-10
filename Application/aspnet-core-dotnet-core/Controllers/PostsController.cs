@@ -1,5 +1,6 @@
 ﻿using AlimentacaoInfantil.DAO;
 using AlimentacaoInfantil.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,6 +10,8 @@ using System.Linq;
 
 namespace AlimentacaoInfantil.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class PostsController : Controller
     {
         private readonly IConfiguration _config;
@@ -34,7 +37,8 @@ namespace AlimentacaoInfantil.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpGet("Posts/ExibirPosts")]
+        [Authorize]
+        [HttpGet("ExibirPosts_v1")]
         public JsonResult ExibirPosts()
         {
             List<PostViewModel> listaPosts;
@@ -47,7 +51,8 @@ namespace AlimentacaoInfantil.Controllers
                 return Json(listaPosts);
         }
 
-        [HttpPost("Posts/FazerPost")]
+        [Authorize]
+        [HttpPost("FazerPost_v1")]
         public JsonResult FazerPost(string conteudo, int autor, int amei, bool anuncio)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
@@ -65,7 +70,8 @@ namespace AlimentacaoInfantil.Controllers
             return Json(new { retorno = "Post feito com sucesso!" });
         }
 
-        [HttpPut("Posts/EditarPost")]
+        [Authorize]
+        [HttpPut("EditarPost_v1")]
         public JsonResult EditarPost(int codigo, string conteudo)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
@@ -85,7 +91,8 @@ namespace AlimentacaoInfantil.Controllers
 
         }
 
-        [HttpDelete("Posts/ApagarPost")]
+        [Authorize]
+        [HttpDelete("ApagarPost_v1")]
         public JsonResult ApagarPost(int codigo)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
@@ -103,7 +110,8 @@ namespace AlimentacaoInfantil.Controllers
                 return Json(new { retorno = "Ocorreu uma falha. Verifique se existe algum post cadastrado." });
         }
 
-        [HttpGet("Posts/ExibirAnuncios")]
+        [Authorize]
+        [HttpGet("ExibirAnuncios_v1")]
         public JsonResult ExibirAnuncios()
         {
             List<PostViewModel> listaAnuncios;
@@ -116,7 +124,8 @@ namespace AlimentacaoInfantil.Controllers
                 return Json(listaAnuncios);
         }
 
-        [HttpPost("Posts/FazerAnuncio")]
+        [Authorize]
+        [HttpPost("FazerAnuncio_v1")]
         public JsonResult FazerAnuncios(string conteudo, int autor, int amei)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
@@ -134,7 +143,8 @@ namespace AlimentacaoInfantil.Controllers
             return Json(new { retorno = "Post e anúncio feitos com sucesso!" });
         }
 
-        [HttpPut("Posts/EditarAnuncio")]
+        [Authorize]
+        [HttpPut("EditarAnuncio_v1")]
         public JsonResult EditarAnuncio(int codigo, string conteudo)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
@@ -153,7 +163,8 @@ namespace AlimentacaoInfantil.Controllers
                 return Json(new { retorno = "Ocorreu uma falha. Verifique se existe algum post cadastrado." });
         }
 
-        [HttpDelete("Posts/ApagarAnuncio")]
+        [Authorize]
+        [HttpDelete("ApagarAnuncio_v1")]
         public JsonResult ApagarAnuncio(int codigo)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
@@ -171,8 +182,8 @@ namespace AlimentacaoInfantil.Controllers
                 return Json(new { retorno = "Ocorreu uma falha. Verifique se existe algum post cadastrado." });
         }
 
-        
-        [HttpPut("Posts/EnviarAmei")]
+        [Authorize]
+        [HttpPut("EnviarAmei_v1")]
         public JsonResult EnviarAmei(int codigo)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
@@ -192,7 +203,8 @@ namespace AlimentacaoInfantil.Controllers
                 return Json(new { retorno = "Ocorreu uma falha. Verifique se existe algum post cadastrado." });
         }
 
-        [HttpPut("Posts/RetirarAmei")]
+        [Authorize]
+        [HttpPut("RetirarAmei_v1")]
         public JsonResult RetirarAmei(int codigo)
         {
             PostsDAO postsDAO = new PostsDAO(_config);

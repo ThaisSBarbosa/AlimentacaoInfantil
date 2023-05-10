@@ -1,5 +1,6 @@
 ﻿using AlimentacaoInfantil.DAO;
 using AlimentacaoInfantil.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,6 +10,8 @@ using System.Linq;
 
 namespace AlimentacaoInfantil.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class MensagensController : Controller
     {
         private readonly IConfiguration _config;
@@ -34,9 +37,8 @@ namespace AlimentacaoInfantil.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-
-
-        [HttpPost("Mensagens/EnviarMensagem")]
+        [Authorize]
+        [HttpPost("EnviarMensagem_v1")]
         public JsonResult EnviarMensagem(string conteudo, int remetente, int destinatario)
         {
             MensagensDAO mensagensDAO = new MensagensDAO(_config);
@@ -54,7 +56,8 @@ namespace AlimentacaoInfantil.Controllers
             return Json(new { retorno = "Mensagem enviada com sucesso!" });
         }
 
-        [HttpPost("Mensagens/ResponderMensagem")]
+        [Authorize]
+        [HttpPost("ResponderMensagem_v1")]
         public JsonResult ResponderMensagem(int codigo, string conteudo, int remetente, int destinatario)
         {
             MensagensDAO mensagensDAO = new MensagensDAO(_config);

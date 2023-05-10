@@ -1,6 +1,7 @@
 ﻿using AlimentacaoInfantil.DAO;
 using AlimentacaoInfantil.Enums;
 using AlimentacaoInfantil.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -8,6 +9,8 @@ using System.Diagnostics;
 
 namespace AlimentacaoInfantil.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ConexoesController : Controller
     {
         private readonly IConfiguration _config;
@@ -33,7 +36,8 @@ namespace AlimentacaoInfantil.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpPost("Conexoes/ConectarSeAUmPai")]
+        [Authorize]
+        [HttpPost("ConectarSeAUmPai_v1")]
         public JsonResult ConectarSeAUmPai(int usuario1, int usuario2)
         {
             ConexaoDAO conexaoDAO = new ConexaoDAO(_config);
