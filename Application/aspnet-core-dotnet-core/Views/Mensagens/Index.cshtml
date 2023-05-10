@@ -21,10 +21,22 @@
             <div class="col-lg-8 align-items-center reservation-form-bg">
                 <form action="EnviarMensagem" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
                     <div class="row gy-4">
-                        <div class="col-lg-12 col-md-6 pb-3">
+                        <div class="col-lg-6 col-md-6">
                             <input type="text" name="name" class="form-control" id="name" placeholder="Seu nome" data-rule="minlen:4" data-msg="Digite pelo menos 4 caracteres.">
                             <div class="validate"></div>
                         </div>
+                        <div class="col-lg-6 col-md-6">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Seu email" data-rule="email" data-msg="Informe um email válido.">
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <div class="col-lg-12 col-md-6 pb-3">
+                            <input type="text" class="form-control" name="assunto" id="assunto" placeholder="Assunto" data-rule="minlen:4" data-msg="Informe o assunto.">
+                            <div class="validate"></div>
+                        </div>
+                        <textarea class="form-control" name="message" rows="10" placeholder="Digite uma mensagem"></textarea>
+                        <div class="validate"></div>
                     </div>
                     <div class="form-group mt-3">
                         <textarea class="form-control" name="message" rows="10" placeholder="Digite uma mensagem"></textarea>
