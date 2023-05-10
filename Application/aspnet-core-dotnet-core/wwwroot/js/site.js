@@ -1,4 +1,7 @@
 $(function () {
+
+    autenticaUsuario();
+
     $("#btnExecutar").click(function () {
         executaAPI()
     })
@@ -10,57 +13,88 @@ function executaAPI() {
     var request = $("#cbAPI").val();
     if (request > 0)
         switch (request) {
-        case "1":
-            exibirPosts();
-            break;
-        case "2":
-            fazerPost();
-            break;
-        case "3":
-            editarPost();
-            break;
-        case "4":
-            apagarPost();
-            break;
-        case "5":
-            exibirAnuncios();
-            break;
-        case "6":
-            fazerAnuncio();
-            break;
-        case "7":
-            editarAnuncio();
-            break;
-        case "8":
-            apagarAnuncio();
-            break;
-        case "9":
-            enviarAmei();
-            break;
-        case "10":
-            retirarAmei();
-            break;
-        case "11":
-            enviarMensagem();
-            break;
-        case "12":
-            responderMensagem();
-            break;
-        case "13":
-            conectarSePaiMae()
-    }
+            case "1":
+                exibirPosts();
+                break;
+            case "2":
+                fazerPost();
+                break;
+            case "3":
+                editarPost();
+                break;
+            case "4":
+                apagarPost();
+                break;
+            case "5":
+                exibirAnuncios();
+                break;
+            case "6":
+                fazerAnuncio();
+                break;
+            case "7":
+                editarAnuncio();
+                break;
+            case "8":
+                apagarAnuncio();
+                break;
+            case "9":
+                enviarAmei();
+                break;
+            case "10":
+                retirarAmei();
+                break;
+            case "11":
+                enviarMensagem();
+                break;
+            case "12":
+                responderMensagem();
+                break;
+            case "13":
+                conectarSePaiMae()
+        }
+}
+
+function autenticaUsuario() {
+    var userCredentials = {
+        Id: 1,
+        Nome: "teste",
+        Email: "teste@example.com",
+        Senha: "1234"
+    };
+
+    $.ajax({
+        url: "api/Autenticacao/AutenticarUsuario_v1",
+        method: "POST",
+        contentType: 'application/json',
+        data: JSON.stringify(userCredentials),
+        success: function (dados) {
+            sessionStorage.setItem("token", dados.token);
+        }
+    });
+
+
+
 }
 
 function exibirPosts() {
     var request = {
-        url: "Posts/ExibirPosts",
+        url: "api/Posts/ExibirPosts_v1",
         type: "get",
         dataType: "json"
     };
-    $.get("Posts/ExibirPosts", function (dados) {
-        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
-        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
-    }, "json")
+
+    $.ajax({
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
+        },
+        url: "api/Posts/ExibirPosts_v1",
+        method: "GET",
+        dataType: "json",
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    });
 }
 
 function fazerPost() {

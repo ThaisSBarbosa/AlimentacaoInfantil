@@ -20,10 +20,10 @@ namespace AlimentacaoInfantil.DAO
 
         private static string GetConnectionString(IConfiguration config)
         {
-            string strConn = config.GetSection(Constantes.STR_CONN_LOCAL).Value;
-            if (string.IsNullOrEmpty(strConn))
-                strConn = Environment.GetEnvironmentVariable(Constantes.STR_CONN_AZURE);
-            return strConn;
+            string secret = config.GetSection(Constantes.STR_CONN_LOCAL).Value;
+            if (string.IsNullOrEmpty(secret))
+                secret = Environment.GetEnvironmentVariable(Constantes.STR_CONN_PROD);
+            return secret;
         }
     }
 }

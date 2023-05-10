@@ -1,7 +1,9 @@
 ﻿using AlimentacaoInfantil.Models;
 using AlimentacaoInfantil.Services;
+using aspnet_core_dotnet_core.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,27 +14,26 @@ namespace AlimentacaoInfantil.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class AutenticacaoController : ControllerBase
     {
-        [Authorize]
-        [HttpGet("exemplo")]
-        public IActionResult Exemplo()
+        private readonly IConfiguration _config;
+
+        public AutenticacaoController(IConfiguration configuration)
         {
-            return Ok("Exemplo de rota protegida com JWT.");
+            _config = configuration;
         }
 
-        [HttpPost("token")]
-        private string Token([FromBody] UserModel user)
+        private string GerarToken([FromBody] UserModel user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("202305091337_secret_key_projeto_ec8_202305091337");
+            var key = Encoding.ASCII.GetBytes(GetSecretKey());
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Nome)
                 }),
-                Expires = DateTime.Now.AddDays(7),
+                Expires = DateTime.Now.AddHours(5),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
@@ -41,17 +42,25 @@ namespace AlimentacaoInfantil.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("autenticar")]
-        public IActionResult Authenticate([FromBody] UserModel credentials)
+        [HttpPost("AutenticarUsuario_v1")]
+        public IActionResult Authenticate([FromBody] UserModel userCredentials)
         {
             var _userService = new UserService();
-            var user = _userService.Authenticate("teste@example.com", "1234");
+            var user = _userService.Authenticate(userCredentials.Email, userCredentials.Senha);
 
             if (user == null)
                 return Unauthorized();
 
-            var token = Token(user);
+            var token = GerarToken(user);
             return Ok(new { Token = token });
+        }
+
+        private string GetSecretKey()
+        {
+            string strConn = _config.GetSection(Constantes.SECRET_KEY_LOCAL).Value;
+            if (string.IsNullOrEmpty(strConn))
+                strConn = Environment.GetEnvironmentVariable(Constantes.SECRET_KEY_PROD);
+            return strConn;
         }
     }
 }
