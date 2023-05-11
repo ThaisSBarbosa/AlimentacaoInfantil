@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using static AlimentacaoInfantil.Controllers.PostsController;
 
 namespace AlimentacaoInfantil.Controllers
 {
@@ -37,17 +38,25 @@ namespace AlimentacaoInfantil.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public class Mensagem
+        {
+            public string conteudo { get; set; }
+            public int codigo { get; set; }
+            public int remetente { get; set; }
+            public int destinatario { get; set; }
+        }
+
         [Authorize]
         [HttpPost("EnviarMensagem_v1")]
-        public JsonResult EnviarMensagem(string conteudo, int remetente, int destinatario)
+        public JsonResult EnviarMensagem([FromBody] Mensagem msg)
         {
             MensagensDAO mensagensDAO = new MensagensDAO(_config);
 
             MensagemViewModel mensagem = new MensagemViewModel
             {
-                Conteudo = conteudo,
-                CodigoUsuarioRemetente = remetente,
-                CodigoUsuarioDestinatario = destinatario,
+                Conteudo = msg.conteudo,
+                CodigoUsuarioRemetente = msg.remetente,
+                CodigoUsuarioDestinatario = msg.destinatario,
                 Status = Enums.EnumStatusMensagem.ENVIADA,
                 DataAtualizacao = DateTime.Now,
             };
@@ -58,11 +67,11 @@ namespace AlimentacaoInfantil.Controllers
 
         [Authorize]
         [HttpPost("ResponderMensagem_v1")]
-        public JsonResult ResponderMensagem(int codigo, string conteudo, int remetente, int destinatario)
+        public JsonResult ResponderMensagem([FromBody] Mensagem msg)
         {
             MensagensDAO mensagensDAO = new MensagensDAO(_config);
 
-            MensagemViewModel mensagemOriginal = mensagensDAO.Consulta(codigo);
+            MensagemViewModel mensagemOriginal = mensagensDAO.Consulta(msg.codigo);
             if (mensagemOriginal == null)
             {
                 return Json(new { retorno = "Ocorreu uma falha. Verifique se existe alguma mensagem para ser respondida." });
@@ -74,9 +83,9 @@ namespace AlimentacaoInfantil.Controllers
 
                 MensagemViewModel mensagemResposta = new MensagemViewModel
                 {
-                    Conteudo = conteudo,
-                    CodigoUsuarioRemetente = remetente,
-                    CodigoUsuarioDestinatario = destinatario,
+                    Conteudo = msg.conteudo,
+                    CodigoUsuarioRemetente = msg.remetente,
+                    CodigoUsuarioDestinatario = msg.destinatario,
                     Status = Enums.EnumStatusMensagem.ENVIADA,
                     DataAtualizacao = DateTime.Now,
                     RespondendoMensagem = mensagemOriginal.Codigo

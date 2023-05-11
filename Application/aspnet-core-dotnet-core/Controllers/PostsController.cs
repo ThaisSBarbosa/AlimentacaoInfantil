@@ -37,6 +37,15 @@ namespace AlimentacaoInfantil.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public class Post
+        {
+            public string conteudo { get; set; }
+            public int codigo { get; set; }
+            public int autor { get; set; }
+            public int amei { get; set; }
+            public bool anuncio { get; set; }
+        }
+
         [Authorize]
         [HttpGet("ExibirPosts_v1")]
         public JsonResult ExibirPosts()
@@ -53,16 +62,16 @@ namespace AlimentacaoInfantil.Controllers
 
         [Authorize]
         [HttpPost("FazerPost_v1")]
-        public JsonResult FazerPost(string conteudo, int autor, int amei, bool anuncio)
+        public JsonResult FazerPost([FromBody] Post novoPost)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
 
             PostViewModel post = new PostViewModel
             {
-                Conteudo = conteudo,
-                Autor = autor,
-                Amei = amei,
-                Anuncio = anuncio,
+                Conteudo = novoPost.conteudo,
+                Autor = novoPost.autor,
+                Amei = novoPost.amei,
+                Anuncio = novoPost.anuncio,
                 Data = DateTime.Now
             };
 
@@ -72,17 +81,17 @@ namespace AlimentacaoInfantil.Controllers
 
         [Authorize]
         [HttpPut("EditarPost_v1")]
-        public JsonResult EditarPost(int codigo, string conteudo)
+        public JsonResult EditarPost([FromBody] Post novoPost)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
-            PostViewModel post = postsDAO.Consulta(codigo);
+            PostViewModel post = postsDAO.Consulta(novoPost.codigo);
 
             if (post == null)
                 post = postsDAO.Lista().FirstOrDefault();
 
             if (post != null)
             {
-                post.Conteudo = conteudo;
+                post.Conteudo = novoPost.conteudo;
                 postsDAO.Alterar(post);
                 return Json(new { retorno = "Post de código " + post.Codigo + " alterado com sucesso!" });
             }
@@ -93,10 +102,10 @@ namespace AlimentacaoInfantil.Controllers
 
         [Authorize]
         [HttpDelete("ApagarPost_v1")]
-        public JsonResult ApagarPost(int codigo)
+        public JsonResult ApagarPost([FromBody] Post postParaDeletar)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
-            PostViewModel post = postsDAO.Consulta(codigo);
+            PostViewModel post = postsDAO.Consulta(postParaDeletar.codigo);
 
             if (post == null)
                 post = postsDAO.Lista().FirstOrDefault();
@@ -126,15 +135,15 @@ namespace AlimentacaoInfantil.Controllers
 
         [Authorize]
         [HttpPost("FazerAnuncio_v1")]
-        public JsonResult FazerAnuncios(string conteudo, int autor, int amei)
+        public JsonResult FazerAnuncios([FromBody] Post anuncio)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
 
             PostViewModel post = new PostViewModel
             {
-                Conteudo = conteudo,
-                Autor = autor,
-                Amei = amei,
+                Conteudo = anuncio.conteudo,
+                Autor = anuncio.autor,
+                Amei = anuncio.amei,
                 Anuncio = true,
                 Data = DateTime.Now
             };
@@ -145,17 +154,17 @@ namespace AlimentacaoInfantil.Controllers
 
         [Authorize]
         [HttpPut("EditarAnuncio_v1")]
-        public JsonResult EditarAnuncio(int codigo, string conteudo)
+        public JsonResult EditarAnuncio([FromBody] Post anuncio)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
-            PostViewModel post = postsDAO.ConsultaAnuncios(codigo);
+            PostViewModel post = postsDAO.ConsultaAnuncios(anuncio.codigo);
 
             if (post == null)
                 post = postsDAO.ListaAnuncios().FirstOrDefault();
 
             if (post != null)
             {
-                post.Conteudo = conteudo;
+                post.Conteudo = anuncio.conteudo;
                 postsDAO.Alterar(post);
                 return Json(new { retorno = "Post de código " + post.Codigo + " alterado com sucesso!" });
             }
@@ -165,10 +174,10 @@ namespace AlimentacaoInfantil.Controllers
 
         [Authorize]
         [HttpDelete("ApagarAnuncio_v1")]
-        public JsonResult ApagarAnuncio(int codigo)
+        public JsonResult ApagarAnuncio([FromBody] Post anuncio)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
-            PostViewModel post = postsDAO.ConsultaAnuncios(codigo);
+            PostViewModel post = postsDAO.ConsultaAnuncios(anuncio.codigo);
 
             if (post == null)
                 post = postsDAO.ListaAnuncios().FirstOrDefault();
@@ -184,10 +193,10 @@ namespace AlimentacaoInfantil.Controllers
 
         [Authorize]
         [HttpPut("EnviarAmei_v1")]
-        public JsonResult EnviarAmei(int codigo)
+        public JsonResult EnviarAmei([FromBody] Post postAmei)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
-            PostViewModel post = postsDAO.Consulta(codigo);
+            PostViewModel post = postsDAO.Consulta(postAmei.codigo);
 
             if (post == null)
                 post = postsDAO.Lista().FirstOrDefault();
@@ -205,10 +214,10 @@ namespace AlimentacaoInfantil.Controllers
 
         [Authorize]
         [HttpPut("RetirarAmei_v1")]
-        public JsonResult RetirarAmei(int codigo)
+        public JsonResult RetirarAmei([FromBody] Post postAmei)
         {
             PostsDAO postsDAO = new PostsDAO(_config);
-            PostViewModel post = postsDAO.Consulta(codigo);
+            PostViewModel post = postsDAO.Consulta(postAmei.codigo);
 
             if (post == null)
                 post = postsDAO.Lista().FirstOrDefault();

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Diagnostics;
+using static AlimentacaoInfantil.Controllers.PostsController;
 
 namespace AlimentacaoInfantil.Controllers
 {
@@ -36,9 +37,16 @@ namespace AlimentacaoInfantil.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public class Conexao
+        {
+            public int codigo { get; set; }
+            public int codigoUsuario1 { get; set; }
+            public int codigoUsuario2 { get; set; }
+        }
+
         [Authorize]
         [HttpPost("ConectarSeAUmPai_v1")]
-        public JsonResult ConectarSeAUmPai(int usuario1, int usuario2)
+        public JsonResult ConectarSeAUmPai([FromBody] Conexao con)
         {
             ConexaoDAO conexaoDAO = new ConexaoDAO(_config);
             UsuariosDAO usuarioDAO = new UsuariosDAO(_config);
