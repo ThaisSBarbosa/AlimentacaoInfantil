@@ -44,7 +44,7 @@ namespace SampleWebApplication.FunctionalTests
                 try
                 {
                     driver.Navigate().GoToUrl(webAppUrl);
-                    Assert.AreEqual("Testes de APIs", driver.Title, "Expected title to be 'Testes de APIs'");
+                    Assert.AreEqual("Home Yummy", driver.Title, "Expected title to be 'Home Yummy'");
                     break;
                 }
                 catch(Exception e)
