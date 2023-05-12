@@ -1,7 +1,14 @@
-﻿using AlimentacaoInfantil.Models;
+﻿using AlimentacaoInfantil.DAO;
+using AlimentacaoInfantil.Enums;
+using AlimentacaoInfantil.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 
 namespace AlimentacaoInfantil.Controllers
 {
@@ -16,7 +23,17 @@ namespace AlimentacaoInfantil.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            JObject json = JObject.Parse(JsonConvert.SerializeObject((new PostsAPIController(_config)).ExibirPosts()));
+            var lista = json["Value"].ToObject<List<PostViewModel>>();
+
+            foreach(var post in lista)
+            {
+                UsuariosDAO usuariosDAO = new UsuariosDAO(_config);
+                post.UsuarioAutor = usuariosDAO.ConsultaPorCodigo(post.Autor);
+                post.TipoUsuario = post.UsuarioAutor.Tipo.GetDescription();
+            }
+
+            return View(lista.OrderByDescending(p => p.Data).ToList());
         }
 
         public IActionResult Privacy()

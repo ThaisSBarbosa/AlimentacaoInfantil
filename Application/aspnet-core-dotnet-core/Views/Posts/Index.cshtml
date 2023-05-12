@@ -1,5 +1,8 @@
-﻿@{
+﻿@model List<PostViewModel>
+
+@{
     ViewData["Title"] = "Posts";
+    Model.ToArray();
 }
 
 @{
@@ -17,83 +20,38 @@
 
         <div class="row gy-4">
 
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                <div class="chef-member">
-                    <div class="member-img">
-                        <img src="~/Yummy/assets/img/mesa_cafe.jpg" class="img-fluid" alt="">
-                        <div class="social">
-                            <a href=""><i class="bi bi-heart"></i></a>
+            <div class="col-lg-12 align-items-center reservation-form-bg">
+                <form action="FazerPost" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+                    <div class="form-group mt-6">
+                        <input type="text" class="form-control conteudoPost" id="conteudo" rows="10" placeholder="Faça um post"></input>
+                        <div class="validate"></div>
+                    </div>
+                    <div class="text-center"><button id="btnPostar" onclick="fazerNovoPost()" class="btn-book-a-table">Postar</button></div>
+                </form>
+            </div>
+
+            @foreach (var post in Model)
+            {
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                    <div class="chef-member">
+                        <div class="member-img">
+                            <img src="~/Yummy/assets/img/mesa_cafe.jpg" class="img-fluid" alt="">
+                            <div class="social">
+                                <a href=""><i class="bi bi-heart"></i></a>
+                            </div>
+                        </div>
+                        <div class="member-info">
+                            <h4>@post.UsuarioAutor.Nome</h4>
+                            <span>@post.TipoUsuario</span>
+                            <p>@post.Conteudo</p>
                         </div>
                     </div>
-                    <div class="member-info">
-                        <h4>Patricia Gomes da Costa</h4>
-                        <span>Pediatra</span>
-                        <p>
-                            Como estabelecer rotinas de alimentação?
-                        </p>
-                        <ul class="member-info" style="list-style-type: none;">
-                            <li><b>Estabeleça horários regulares para as refeições: </b> tente oferecer refeições em horários regulares todos os dias. Isso ajuda a regular o apetite do seu filho e evita o excesso de fome, o que pode levar a escolhas alimentares pouco saudáveis. Idealmente, seu filho deve ter 3 refeições principais (café da manhã, almoço e jantar) e 2 lanches por dia.</li>
-                            <li><b>Ofereça uma variedade de alimentos saudáveis: </b> ofereça ao seu filho uma variedade de alimentos saudáveis em cada refeição. Certifique-se de incluir frutas, legumes, grãos integrais, proteínas magras e laticínios com baixo teor de gordura. Isso ajudará a fornecer os nutrientes necessários para um crescimento e desenvolvimento saudáveis.</li>
-                            <li><b>Evite distrações durante as refeições: </b> evite distrações durante as refeições, como televisão ou brinquedos. Isso pode levar seu filho a comer demais ou não prestar atenção aos sinais de saciedade. Em vez disso, tente criar um ambiente calmo e tranquilo durante as refeições.</li>
-                            <li><b>Evite pressionar o seu filho a comer: </b> não force o seu filho a comer quando ele não estiver com fome ou quando ele não quiser comer um determinado alimento. Isso pode criar uma associação negativa com a alimentação e pode levar seu filho a ter aversão a alimentos saudáveis. Em vez disso, tente oferecer uma variedade de alimentos saudáveis e deixe seu filho decidir o quanto quer comer.</li>
-                        </ul>
-                    </div>
                 </div>
-            </div><!-- End Chefs Member -->
-
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                <div class="chef-member">
-                    <div class="member-img">
-                        <img src="~/Yummy/assets/img/vegetais.jpg" class="img-fluid" alt="">
-                        <div class="social">
-                            <a href=""><i class="bi bi-heart"></i></a>
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <h4>Maria Pereira da Silva</h4>
-                        <span>Nutricionista</span>
-                        <p>
-                            Incentivar o consumo de frutas, verduras e legumes para crianças pode ser desafiador, mas existem algumas estratégias que podem ajudar:
-                        </p>
-                        <ul class="member-info" style="list-style-type: none;">
-                            <li><b>Ofereça uma variedade de opções:</b> é importante oferecer diferentes tipos de frutas, verduras e legumes para a criança experimentar. Assim, ela pode descobrir novos sabores e texturas.</li>
-                            <li><b>Faça da alimentação uma atividade divertida:</b> crianças geralmente adoram atividades que envolvem criatividade e diversão. Então, envolva-as no processo de escolher e preparar as frutas, verduras e legumes. Por exemplo, deixe que elas escolham qual fruta querem levar na lancheira ou peça ajuda na hora de preparar uma salada colorida.</li>
-                            <li><b>Sirva como um petisco:</b> frutas, verduras e legumes podem ser servidos como petiscos, acompanhados de um molho saudável, como guacamole ou hummus. Isso pode ser uma opção mais atrativa do que uma refeição completa.</li>
-                            <li><b>Seja um exemplo:</b> as crianças observam e imitam o comportamento dos adultos. Então, se você também consome frutas, verduras e legumes, a criança será mais propensa a seguir o exemplo.</li>
-                            <li><b>Seja paciente:</b> é normal que as crianças rejeitem alimentos que não conhecem ou que não gostem do sabor. Ofereça as opções diversas vezes e de maneiras diferentes, sem pressionar a criança. Com o tempo, ela pode se acostumar e até começar a gostar de novos alimentos.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div><!-- End Chefs Member -->
-
-
-
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                <div class="chef-member">
-                    <div class="member-img">
-                        <img src="~/Yummy/assets/img/picole.jpg" class="img-fluid" alt="">
-                        <div class="social">
-                            <a href=""><i class="bi bi-heart"></i></a>
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <h4>Ana Beatriz Lagos Santiago</h4>
-                        <span>Nutricionista</span>
-                        <p>
-                            Reduzir a ingestão de açúcar é importante para uma alimentação saudável para crianças. Aqui estão algumas dicas para evitar o açúcar em sua dieta:
-                        </p>
-                        <ul class="member-info" style="list-style-type: none;">
-                            <li><b>Opte por alimentos naturais:</b> incentive o consumo de frutas frescas, legumes e grãos integrais, que são alimentos naturalmente doces e contêm muitos nutrientes importantes. </li>
-                            <li><b>Não ofereça açúcar como recompensa: </b> evite oferecer doces ou sobremesas como recompensa por um bom comportamento ou desempenho. Isso pode criar uma associação negativa com alimentos saudáveis ​​e incentivar a busca por alimentos açucarados. </li>
-                            <li><b>Prepare refeições em casa: </b> coma em casa sempre que possível para ter controle sobre os ingredientes que você usa em suas refeições. Isso também ajuda a evitar o excesso de açúcar em alimentos processados e fast-food. </li>
-                            <li><b>Leia os rótulos dos alimentos: </b> Muitos alimentos contêm açúcar adicionado, mesmo aqueles que parecem saudáveis. Leia os rótulos dos alimentos com cuidado e tente escolher aqueles com baixo teor de açúcar. </li>
-                        </ul>
-                    </div>
-                </div>
-            </div><!-- End Chefs Member -->
-
-
+            }
         </div>
 
     </div>
-</section><!-- End Chefs Section -->
+</section>
+<script src="~/js/posts.js" asp-append-version="false"></script>
+<script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -1,10 +1,14 @@
 $(function () {
 
-    autenticaUsuario();
+    //autenticaUsuario();
 
     $("#btnExecutar").click(function () {
-        executaAPI()
-    })
+        executaAPI();
+    });
+
+    $("#btnPostar").click(function () {
+        fazerNovoPost();
+    });
 });
 
 function executaAPI() {
@@ -54,26 +58,26 @@ function executaAPI() {
         }
 }
 
-function autenticaUsuario() {
+//function autenticaUsuario() {
 
-    // Usuário mockado
-    var userCredentials = {
-        Id: 1,
-        Nome: "teste",
-        Email: "teste@example.com",
-        Senha: "1234"
-    };
+//    // Usuário mockado
+//    var userCredentials = {
+//        Id: 6,
+//        Nome: "Luana",
+//        Email: "luana@example.com",
+//        Senha: "1234"
+//    };
 
-    $.ajax({
-        url: "api/Autenticacao/AutenticarUsuario_v1",
-        method: "POST",
-        contentType: 'application/json',
-        data: JSON.stringify(userCredentials),
-        success: function (dados) {
-            sessionStorage.setItem("token", dados.token);
-        }
-    });
-}
+//    $.ajax({
+//        url: "api/Autenticacao/AutenticarUsuario_v1",
+//        method: "POST",
+//        contentType: 'application/json',
+//        data: JSON.stringify(userCredentials),
+//        success: function (dados) {
+//            sessionStorage.setItem("token", dados.token);
+//        }
+//    });
+//}
 
 function exibirPosts() {
     var request = {
@@ -125,6 +129,29 @@ function fazerPost() {
         }
     });
 }
+
+//function fazerNovoPost() {
+
+//    var obj = {
+//        conteudo: $("#conteudo").val(),
+//        autor: 6,
+//        amei: 0,
+//        anuncio: false
+//    };
+
+//    $.ajax({
+//        headers: {
+//            "Authorization": "Bearer " + sessionStorage.getItem("token")
+//        },
+//        contentType: "application/json",
+//        url: "api/PostsAPI/FazerPost_v1",
+//        method: "POST",
+//        data: JSON.stringify(obj),
+//        success: function (dados) {
+//            alert("Tudo certo!");
+//        }
+//    });
+//}
 
 function editarPost() {
     var request = {
