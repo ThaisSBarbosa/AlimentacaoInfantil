@@ -29,7 +29,7 @@ namespace AlimentacaoInfantil.Controllers
 
         public IActionResult HomeYummy()
         {
-            return View("Index");
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
