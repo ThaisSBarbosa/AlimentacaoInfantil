@@ -23,14 +23,14 @@ namespace AlimentacaoInfantil.Controllers
 
         public IActionResult Index()
         {
-            var _userService = new UserService();
-            var user = _userService.Authenticate("luana@example.com", "1234");
+            //var _userService = new UserService();
+            //var user = _userService.Authenticate("luana@example.com", "1234");
 
-            if (user == null)
-                return Unauthorized();
+            //if (user == null)
+            //    return Unauthorized();
 
-            var token = GerarToken(user);
-            ViewBag.Token = token;
+            //var token = GerarToken(user);
+            //ViewBag.Token = token;
 
             return View();
         }
@@ -51,30 +51,30 @@ namespace AlimentacaoInfantil.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private string GerarToken([FromBody] UserModel user)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(GetSecretKey());
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Nome)
-                }),
-                Expires = DateTime.Now.AddHours(5),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
+        //private string GerarToken([FromBody] UserModel user)
+        //{
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var key = Encoding.ASCII.GetBytes(GetSecretKey());
+        //    var tokenDescriptor = new SecurityTokenDescriptor
+        //    {
+        //        Subject = new ClaimsIdentity(new Claim[]
+        //        {
+        //            new Claim(ClaimTypes.Name, user.Nome)
+        //        }),
+        //        Expires = DateTime.Now.AddHours(5),
+        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        //    };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
-        }
+        //    var token = tokenHandler.CreateToken(tokenDescriptor);
+        //    return tokenHandler.WriteToken(token);
+        //}
 
-        private string GetSecretKey()
-        {
-            string strConn = _config.GetSection(Constantes.SECRET_KEY_LOCAL).Value;
-            if (string.IsNullOrEmpty(strConn))
-                strConn = Environment.GetEnvironmentVariable(Constantes.SECRET_KEY_PROD);
-            return strConn;
-        }
+        //private string GetSecretKey()
+        //{
+        //    string strConn = _config.GetSection(Constantes.SECRET_KEY_LOCAL).Value;
+        //    if (string.IsNullOrEmpty(strConn))
+        //        strConn = Environment.GetEnvironmentVariable(Constantes.SECRET_KEY_PROD);
+        //    return strConn;
+        //}
     }
 }

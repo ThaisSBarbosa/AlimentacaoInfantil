@@ -41,12 +41,14 @@ namespace AlimentacaoInfantil.Controllers
             return tokenHandler.WriteToken(token);
         }
 
+        //        public IActionResult Authenticate([FromBody] UserModel userCredentials)
+
         [AllowAnonymous]
-        [HttpPost("AutenticarUsuario_v1")]
-        public IActionResult Authenticate([FromBody] UserModel userCredentials)
+        [HttpGet("AutenticarUsuario_v1")]
+        public IActionResult Authenticate()
         {
             var _userService = new UserService();
-            var user = _userService.Authenticate(userCredentials.Email, userCredentials.Senha);
+            var user = _userService.Authenticate("luana@example.com", "1234");
 
             if (user == null)
                 return Unauthorized();
