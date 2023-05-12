@@ -25,6 +25,17 @@ function fazerNovoPost() {
             });
             $("#conteudo").val('');
             window.location = "/posts/index";
+        },
+        error: function (dados) {
+            Swal.fire({
+                position: 'top-center',
+                icon: 'error',
+                title: 'Erro!',
+                showConfirmButton: false,
+                timer: 1200
+            });
+            $("#conteudo").val('');
+            window.location = "/posts/index";
         }
     });
 }
