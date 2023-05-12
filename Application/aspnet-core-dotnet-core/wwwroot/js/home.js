@@ -14,7 +14,7 @@ function autenticaUsuario() {
     };
 
     $.ajax({
-        url: "../../api/Autenticacao/AutenticarUsuario_v1",
+        url: "../api/Autenticacao/AutenticarUsuario_v1",
         method: "POST",
         contentType: 'application/json',
         data: JSON.stringify(userCredentials),
