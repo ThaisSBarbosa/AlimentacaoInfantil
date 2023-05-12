@@ -30,7 +30,7 @@ namespace AlimentacaoInfantil.Controllers
                 return Unauthorized();
 
             var token = GerarToken(user);
-            ViewData["Token"] = token;
+            ViewBag.Token = token;
 
             return View();
         }
