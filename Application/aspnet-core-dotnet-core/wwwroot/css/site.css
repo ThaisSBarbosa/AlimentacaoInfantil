@@ -43,10 +43,10 @@ html {
     min-height: 100%;
 }
 
-body {
+/*body {*/
     /* Margin bottom by footer height */
-    margin-bottom: 60px;
-}
+/*    margin-bottom: 60px;
+*//*}*/
 
 .footer {
     position: absolute;
@@ -119,9 +119,9 @@ body {
         height: 100%;
     }
 
-.content-body {
+/*.content-body {
     min-width: 400px;
-}
+}*/
 
 .col-md-4 {
     color: black;
