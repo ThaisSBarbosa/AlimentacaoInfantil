@@ -43,18 +43,30 @@ namespace AlimentacaoInfantil.Controllers
 
         //        public IActionResult Authenticate([FromBody] UserModel userCredentials)
 
-        [AllowAnonymous]
-        [HttpGet("AutenticarUsuario_v1")]
-        public IActionResult Authenticate()
+        //[AllowAnonymous]
+        //[HttpGet("AutenticarUsuario_v1")]
+        //public IActionResult Authenticate()
+        //{
+        //    var _userService = new UserService();
+        //    var user = _userService.Authenticate("luana@example.com", "1234");
+
+        //    if (user == null)
+        //        return Unauthorized();
+
+        //    var token = GerarToken(user);
+        //    return Ok(new { Token = token });
+        //}
+
+        public string Authenticate()
         {
             var _userService = new UserService();
             var user = _userService.Authenticate("luana@example.com", "1234");
 
             if (user == null)
-                return Unauthorized();
+                return string.Empty;
 
             var token = GerarToken(user);
-            return Ok(new { Token = token });
+            return token;
         }
 
         private string GetSecretKey()
