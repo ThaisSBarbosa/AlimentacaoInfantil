@@ -1,10 +1,3 @@
-//$(document).ready(function () {
-
-//    $("#btnPostar").click(function () {
-//        fazerNovoPost();
-//    });
-//});
-
 function fazerNovoPost() {
 
     var obj = {
