@@ -1,3 +1,4 @@
+using AlimentacaoInfantil.Enums;
 using System;
 
 namespace AlimentacaoInfantil.Models
@@ -15,5 +16,9 @@ namespace AlimentacaoInfantil.Models
         public bool Anuncio { get; set; }
 
         public DateTime Data { get; set; }
+
+        public UsuarioViewModel UsuarioAutor { get; set; }
+
+        public string TipoUsuario { get; set; }
     }
 }

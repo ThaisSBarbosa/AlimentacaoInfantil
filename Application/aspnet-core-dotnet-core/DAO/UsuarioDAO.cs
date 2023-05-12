@@ -78,6 +78,16 @@ namespace AlimentacaoInfantil.DAO
                 return MontaModel(tabela.Rows[0]);
         }
 
+        public UsuarioViewModel ConsultaPorCodigo(int codigo)
+        {
+            string sql = "select * from tbUsuarios where usr_codigo = " + codigo;
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null, _config);
+            if (tabela.Rows.Count == 0)
+                return null;
+            else
+                return MontaModel(tabela.Rows[0]);
+        }
+
         public List<UsuarioViewModel> Lista()
         {
             string sql = "select * from tbUsuarios";

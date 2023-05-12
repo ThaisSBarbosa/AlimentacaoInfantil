@@ -1,10 +1,14 @@
 $(function () {
 
-    autenticaUsuario();
+    //autenticaUsuario();
 
     $("#btnExecutar").click(function () {
-        executaAPI()
-    })
+        executaAPI();
+    });
+
+    $("#btnPostar").click(function () {
+        fazerNovoPost();
+    });
 });
 
 function executaAPI() {
@@ -54,27 +58,26 @@ function executaAPI() {
         }
 }
 
-function autenticaUsuario() {
-    var userCredentials = {
-        Id: 1,
-        Nome: "teste",
-        Email: "teste@example.com",
-        Senha: "1234"
-    };
+//function autenticaUsuario() {
 
-    $.ajax({
-        url: "api/Autenticacao/AutenticarUsuario_v1",
-        method: "POST",
-        contentType: 'application/json',
-        data: JSON.stringify(userCredentials),
-        success: function (dados) {
-            sessionStorage.setItem("token", dados.token);
-        }
-    });
+//    // Usuário mockado
+//    var userCredentials = {
+//        Id: 6,
+//        Nome: "Luana",
+//        Email: "luana@example.com",
+//        Senha: "1234"
+//    };
 
-
-
-}
+//    $.ajax({
+//        url: "api/Autenticacao/AutenticarUsuario_v1",
+//        method: "POST",
+//        contentType: 'application/json',
+//        data: JSON.stringify(userCredentials),
+//        success: function (dados) {
+//            sessionStorage.setItem("token", dados.token);
+//        }
+//    });
+//}
 
 function exibirPosts() {
     var request = {
@@ -87,7 +90,7 @@ function exibirPosts() {
         headers: {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
-        url: "api/Posts/ExibirPosts_v1",
+        url: "api/PostsAPI/ExibirPosts_v1",
         method: "GET",
         dataType: "json",
         success: function (dados) {
@@ -104,31 +107,73 @@ function fazerPost() {
         data: '{ conteudo: "Post teste", autor: 2, amei: 0, anuncio: false }',
         dataType: "json"
     };
-    $.post("Posts/FazerPost", {
+
+    var obj = {
         conteudo: "Post teste",
         autor: 2,
         amei: 0,
         anuncio: false
-    }, function (dados) {
-        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
-        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
-    }, "json")
+    };
+
+    $.ajax({
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
+        },
+        contentType: "application/json",
+        url: "api/PostsAPI/FazerPost_v1",
+        method: "POST",
+        data: JSON.stringify(obj),
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    });
 }
+
+//function fazerNovoPost() {
+
+//    var obj = {
+//        conteudo: $("#conteudo").val(),
+//        autor: 6,
+//        amei: 0,
+//        anuncio: false
+//    };
+
+//    $.ajax({
+//        headers: {
+//            "Authorization": "Bearer " + sessionStorage.getItem("token")
+//        },
+//        contentType: "application/json",
+//        url: "api/PostsAPI/FazerPost_v1",
+//        method: "POST",
+//        data: JSON.stringify(obj),
+//        success: function (dados) {
+//            alert("Tudo certo!");
+//        }
+//    });
+//}
 
 function editarPost() {
     var request = {
-        url: "Posts/EditarPost",
+        url: "api/PostsAPI/EditarPost_v1",
         type: "put",
         data: '{ codigo: [o primeiro registro do banco], conteudo: "novo conteúdo" }',
         dataType: "json"
     };
+
+    var obj = {
+        codigo: 1,
+        conteudo: "novo conteúdo"
+    };
+
     $.ajax({
-        url: "Posts/EditarPost",
-        method: "PUT",
-        data: {
-            codigo: 1,
-            conteudo: "novo conteúdo"
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
+        contentType: "application/json",
+        url: "api/PostsAPI/EditarPost_v1",
+        method: "PUT",
+        data: JSON.stringify(obj),
         success: function (dados) {
             $("#txtRequest").html(JSON.stringify(request, undefined, 4));
             $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
@@ -143,12 +188,19 @@ function apagarPost() {
         data: "{ codigo: [o primeiro registro do banco] }",
         dataType: "json"
     };
+
+    var obj = {
+        codigo: 1
+    };
+
     $.ajax({
-        url: "Posts/ApagarPost",
-        method: "DELETE",
-        data: {
-            codigo: 1
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
+        contentType: "application/json",
+        url: "api/PostsAPI/ApagarPost_v1", 
+        method: "DELETE",
+        data: JSON.stringify(obj),
         success: function (dados) {
             $("#txtRequest").html(JSON.stringify(request, undefined, 4));
             $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
@@ -163,10 +215,19 @@ function exibirAnuncios() {
         type: "get",
         dataType: "json"
     };
-    $.get("Posts/ExibirAnuncios", function (dados) {
-        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
-        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
-    }, "json")
+
+    $.ajax({
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
+        },
+        url: "api/PostsAPI/ExibirAnuncios_v1",
+        method: "GET",
+        dataType: "json",
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    });
 
 }
 
@@ -177,14 +238,27 @@ function fazerAnuncio() {
         data: '{ conteudo: "Anúncio teste", autor: 1, amei: 0 }',
         dataType: "json"
     };
-    $.post("Posts/FazerAnuncio", {
+
+    var obj = {
         conteudo: "Anúncio teste",
         autor: 1,
-        amei: 0
-    }, function (dados) {
-        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
-        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
-    }, "json")
+        amei: 0,
+        anuncio: true
+    };
+
+    $.ajax({
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
+        },
+        contentType: "application/json",
+        url: "api/PostsAPI/FazerAnuncio_v1",
+        method: "POST",
+        data: JSON.stringify(obj),
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    });
 }
 
 function editarAnuncio() {
@@ -194,13 +268,20 @@ function editarAnuncio() {
         data: '{ codigo: [o primeiro registro do banco], conteudo: "novo conteúdo 2" }',
         dataType: "json"
     };
+
+    var obj = {
+        codigo: 1,
+        conteudo: "novo conteúdo 2"
+    };
+
     $.ajax({
-        url: "Posts/EditarAnuncio",
-        method: "PUT",
-        data: {
-            codigo: 1,
-            conteudo: "novo conteúdo 2"
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
+        contentType: "application/json",
+        url: "api/PostsAPI/EditarAnuncio_v1",
+        method: "PUT",
+        data: JSON.stringify(obj),
         success: function (dados) {
             $("#txtRequest").html(JSON.stringify(request, undefined, 4));
             $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
@@ -215,12 +296,19 @@ function apagarAnuncio() {
         data: "{ codigo: [o primeiro registro do banco] }",
         dataType: "json"
     };
+
+    var obj = {
+        codigo: 1
+    };
+
     $.ajax({
-        url: "Posts/ApagarAnuncio",
-        method: "DELETE",
-        data: {
-            codigo: 1
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
+        contentType: "application/json",
+        url: "api/PostsAPI/ApagarAnuncio_v1",
+        method: "DELETE",
+        data: JSON.stringify(obj),
         success: function (dados) {
             $("#txtRequest").html(JSON.stringify(request, undefined, 4));
             $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
@@ -230,17 +318,24 @@ function apagarAnuncio() {
 
 function enviarAmei() {
     var request = {
-        url: "Posts/EnviarAmei",
+        url: "PostsAPI/EnviarAmei",
         type: "post",
         data: '{ codigo: [o primeiro registro do banco] }',
         dataType: "json"
     };
+
+    var obj = {
+        codigo: 1
+    };
+
     $.ajax({
-        url: "Posts/EnviarAmei",
-        method: "PUT",
-        data: {
-            codigo: 1
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
+        contentType: "application/json",
+        url: "api/PostsAPI/EnviarAmei_v1",
+        method: "PUT",
+        data: JSON.stringify(obj),
         success: function (dados) {
             $("#txtRequest").html(JSON.stringify(request, undefined, 4));
             $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
@@ -255,12 +350,19 @@ function retirarAmei() {
         data: '{ codigo: [o primeiro registro do banco] }',
         dataType: "json"
     };
+
+    var obj = {
+        codigo: 1
+    };
+
     $.ajax({
-        url: "Posts/RetirarAmei",
-        method: "PUT",
-        data: {
-            codigo: 1
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
+        contentType: "application/json",
+        url: "api/PostsAPI/RetirarAmei_v1",
+        method: "PUT",
+        data: JSON.stringify(obj),
         success: function (dados) {
             $("#txtRequest").html(JSON.stringify(request, undefined, 4));
             $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
@@ -275,14 +377,26 @@ function enviarMensagem() {
         data: '{ conteudo: "Envia mensagem", remetente: 1, destinatario: 2 }',
         dataType: "json"
     };
-    $.post("Mensagens/EnviarMensagem", {
+
+    var obj = {
         conteudo: "Envia mensagem",
         remetente: 1,
         destinatario: 2
-    }, function (dados) {
-        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
-        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
-    }, "json")
+    };
+
+    $.ajax({
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
+        },
+        contentType: "application/json",
+        url: "api/MensagensAPI/EnviarMensagem_v1",
+        method: "POST",
+        data: JSON.stringify(obj),
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    });
 }
 
 function responderMensagem() {
@@ -292,29 +406,53 @@ function responderMensagem() {
         data: '{ codigo: 1, conteudo: "Respondendo mensagem", remetente: 2, destinatario: 1 }',
         dataType: "json"
     };
-    $.post("Mensagens/ResponderMensagem", {
+
+    var obj = {
         codigo: 1,
         conteudo: "Respondendo mensagem",
         remetente: 2,
         destinatario: 1
-    }, function (dados) {
-        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
-        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
-    }, "json")
+    };
+
+    $.ajax({
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
+        },
+        contentType: "application/json",
+        url: "api/MensagensAPI/ResponderMensagem_v1",
+        method: "POST",
+        data: JSON.stringify(obj),
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    });
 }
 
 function conectarSePaiMae() {
     var request = {
-        url: "Conexoes/ConectarSeAUmPai",
+        url: "ConexoesAPI/ConectarSeAUmPai",
         type: "post",
         data: "{usuario1: [usuario criado para este teste], usuario2: [usuario criado para este teste]}",
         dataType: "json"
     };
-    $.post("Conexoes/ConectarSeAUmPai", {
+
+    var obj = {
         usuario1: 1,
         usuario2: 2
-    }, function (dados) {
-        $("#txtRequest").html(JSON.stringify(request, undefined, 4));
-        $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
-    }, "json")
+    };
+
+    $.ajax({
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
+        },
+        contentType: "application/json",
+        url: "api/ConexoesAPI/ConectarSeAUmPai_v1",
+        method: "POST",
+        data: JSON.stringify(obj),
+        success: function (dados) {
+            $("#txtRequest").html(JSON.stringify(request, undefined, 4));
+            $("#txtResponse").html(JSON.stringify(dados, undefined, 4))
+        }
+    });
 }

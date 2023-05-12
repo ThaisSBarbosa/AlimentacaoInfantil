@@ -1,15 +1,18 @@
 ﻿using AlimentacaoInfantil.Models;
+using aspnet_core_dotnet_core.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Diagnostics;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace AlimentacaoInfantil.Controllers
 {
-    public class UsuarioController : Controller
+    public class JogoController : Controller
     {
         private readonly IConfiguration _config;
 
-        public UsuarioController(IConfiguration configuration)
+        public JogoController(IConfiguration configuration)
         {
             _config = configuration;
         }

@@ -9,7 +9,7 @@ namespace AlimentacaoInfantil.Services
     {
         private readonly List<UserModel> _users = new List<UserModel>
         {
-            new UserModel { Id = 1, Nome = "teste", Email = "teste@example.com", Senha = "1234" }
+            new UserModel { Id = 6, Nome = "Luana", Email = "luana@example.com", Senha = "1234" }
         };
 
         public UserModel Authenticate(string email, string password)
