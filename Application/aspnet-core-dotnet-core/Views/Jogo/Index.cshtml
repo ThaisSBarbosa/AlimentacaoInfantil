@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewData["Title"] = "Jogo";
+}
+﻿@{
+    Layout = "_LayoutYummy";
+}
+
+<br />
+<section id="mensagens" class="book-a-table">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+            <h2>Quiz!</h2>
+            <p>Qual é a <span>Fruta</span>?</p>
+        </div>
+
+        <div class="row g-0">
+            
+
+            <div class="col-lg-4 reservation-img" style="background-image: url(/Yummy/assets/img/mesa_frutas.png); background-size: cover; " data-aos="zoom-in" data-aos-delay="200"></div>
+
+            <div class="col-lg-8 align-items-center reservation-form-bg">
+                <br />
+                <div class="container mx-auto text-center" style="max-width: 800px;">
+                    <ul class="member-info" style="list-style-type: none;">
+                        <li id="dica1" onclick="exibirDica1()">
+                            Clique para exibir a dica número 1.
+                        </li>
+                        <br />
+                        <li id="dica2" onclick="exibirDica2()">
+                            Clique para exibir a dica número 2.
+                        </li>
+                        <br />
+                        <li id="dica3" onclick="exibirDica3()">
+                            Clique para exibir a dica número 3.
+                        </li>
+                    </ul>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div class="container mx-auto text-center" style="max-width: 800px;">
+                    <div>
+                        <button onclick="exibirResposta()" id="botao-correto" type="button" class="btn btn-success btn-lg d-inline-block" style="width: 350px;">Maçã</button>
+                        <button onclick="exibirResposta()" id="botao-incorreto1" type="button" class="btn btn-success btn-lg" style="width: 350px;">Pera</button>
+                    </div>
+                    <br />
+                    <div>
+                        <button onclick="exibirResposta()" id="botao-incorreto2" type="button" class="btn btn-success btn-lg d-inline-block" style="width: 350px;">Banana</button>
+                        <button onclick="exibirResposta()" id="botao-incorreto3" type="button" class="btn btn-success btn-lg d-inline-block" style="width: 350px;">Amora</button>
+                    </div>
+                    <br />
+                    <div id="resposta"></div>
+                </div>
+            </div>
+    </div>
+</section>
+
+<script>
+    //dicas
+    function exibirDica1() {
+        var dica1 = document.getElementById("dica1").innerHTML = "É uma frutinha muito gostosa e saudável. Ela tem uma casca bem colorida, que pode ser vermelha, verde ou amarela, e dentro tem uma polpa bem docinha que a gente pode comer."
+    }
+
+    function exibirDica2() {
+        var dica2 = document.getElementById("dica2").innerHTML = "Ela é muito popular no outono e é bastante usada em sobremesas como, por exemplo, em tortinhas deliciosas."
+    }
+
+    function exibirDica3() {
+        var dica3 = document.getElementById("dica3").innerHTML = "Ela é conhecida por seu sabor doce e suculento, e é frequentemente associada a uma história de conto de fadas envolvendo uma bruxa má e uma princesa"
+    }
+
+    //resposta
+    var botaoIncorreto1 = document.getElementById("botao-incorreto1");
+    var botaoIncorreto2 = document.getElementById("botao-incorreto2");
+    var botaoCorreto = document.getElementById("botao-correto");
+    var botaoIncorreto3 = document.getElementById("botao-incorreto3");
+
+    function exibirResposta(resposta) {
+        var divResposta = document.getElementById("resposta").innerHTML = resposta;
+    }
+
+    botaoCorreto.onclick = function () {
+        exibirResposta("Parabéns! Você acertou :)");
+    };
+
+    botaoIncorreto1.onclick = function () {
+        exibirResposta("Resposta incorreta. Tente outra vez.");
+    };
+
+    botaoIncorreto2.onclick = function () {
+        exibirResposta("Resposta incorreta. Tente outra vez.");
+    };
+
+    botaoIncorreto3.onclick = function () {
+        exibirResposta("Resposta incorreta. Tente outra vez.");
+    };
+</script>
+
+
