@@ -5,8 +5,6 @@ using System.Diagnostics;
 
 namespace AlimentacaoInfantil.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class UsuarioController : Controller
     {
         private readonly IConfiguration _config;

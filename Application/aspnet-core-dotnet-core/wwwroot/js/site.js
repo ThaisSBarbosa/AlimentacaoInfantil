@@ -86,7 +86,7 @@ function exibirPosts() {
         headers: {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
-        url: "api/Posts/ExibirPosts_v1",
+        url: "api/PostsAPI/ExibirPosts_v1",
         method: "GET",
         dataType: "json",
         success: function (dados) {
@@ -116,7 +116,7 @@ function fazerPost() {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
         contentType: "application/json",
-        url: "api/Posts/FazerPost_v1",
+        url: "api/PostsAPI/FazerPost_v1",
         method: "POST",
         data: JSON.stringify(obj),
         success: function (dados) {
@@ -128,7 +128,7 @@ function fazerPost() {
 
 function editarPost() {
     var request = {
-        url: "api/Posts/EditarPost_v1",
+        url: "api/PostsAPI/EditarPost_v1",
         type: "put",
         data: '{ codigo: [o primeiro registro do banco], conteudo: "novo conteúdo" }',
         dataType: "json"
@@ -144,7 +144,7 @@ function editarPost() {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
         contentType: "application/json",
-        url: "api/Posts/EditarPost_v1",
+        url: "api/PostsAPI/EditarPost_v1",
         method: "PUT",
         data: JSON.stringify(obj),
         success: function (dados) {
@@ -171,7 +171,7 @@ function apagarPost() {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
         contentType: "application/json",
-        url: "api/Posts/ApagarPost_v1", 
+        url: "api/PostsAPI/ApagarPost_v1", 
         method: "DELETE",
         data: JSON.stringify(obj),
         success: function (dados) {
@@ -193,7 +193,7 @@ function exibirAnuncios() {
         headers: {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
-        url: "api/Posts/ExibirAnuncios_v1",
+        url: "api/PostsAPI/ExibirAnuncios_v1",
         method: "GET",
         dataType: "json",
         success: function (dados) {
@@ -224,7 +224,7 @@ function fazerAnuncio() {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
         contentType: "application/json",
-        url: "api/Posts/FazerAnuncio_v1",
+        url: "api/PostsAPI/FazerAnuncio_v1",
         method: "POST",
         data: JSON.stringify(obj),
         success: function (dados) {
@@ -252,7 +252,7 @@ function editarAnuncio() {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
         contentType: "application/json",
-        url: "api/Posts/EditarAnuncio_v1",
+        url: "api/PostsAPI/EditarAnuncio_v1",
         method: "PUT",
         data: JSON.stringify(obj),
         success: function (dados) {
@@ -279,7 +279,7 @@ function apagarAnuncio() {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
         contentType: "application/json",
-        url: "api/Posts/ApagarAnuncio_v1",
+        url: "api/PostsAPI/ApagarAnuncio_v1",
         method: "DELETE",
         data: JSON.stringify(obj),
         success: function (dados) {
@@ -291,7 +291,7 @@ function apagarAnuncio() {
 
 function enviarAmei() {
     var request = {
-        url: "Posts/EnviarAmei",
+        url: "PostsAPI/EnviarAmei",
         type: "post",
         data: '{ codigo: [o primeiro registro do banco] }',
         dataType: "json"
@@ -306,7 +306,7 @@ function enviarAmei() {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
         contentType: "application/json",
-        url: "api/Posts/EnviarAmei_v1",
+        url: "api/PostsAPI/EnviarAmei_v1",
         method: "PUT",
         data: JSON.stringify(obj),
         success: function (dados) {
@@ -333,7 +333,7 @@ function retirarAmei() {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
         contentType: "application/json",
-        url: "api/Posts/RetirarAmei_v1",
+        url: "api/PostsAPI/RetirarAmei_v1",
         method: "PUT",
         data: JSON.stringify(obj),
         success: function (dados) {
@@ -404,7 +404,7 @@ function responderMensagem() {
 
 function conectarSePaiMae() {
     var request = {
-        url: "Conexoes/ConectarSeAUmPai",
+        url: "ConexoesAPI/ConectarSeAUmPai",
         type: "post",
         data: "{usuario1: [usuario criado para este teste], usuario2: [usuario criado para este teste]}",
         dataType: "json"
@@ -420,7 +420,7 @@ function conectarSePaiMae() {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
         contentType: "application/json",
-        url: "api/Conexoes/ConectarSeAUmPai_v1",
+        url: "api/ConexoesAPI/ConectarSeAUmPai_v1",
         method: "POST",
         data: JSON.stringify(obj),
         success: function (dados) {
