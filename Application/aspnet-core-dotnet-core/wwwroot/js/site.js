@@ -362,7 +362,7 @@ function enviarMensagem() {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
         contentType: "application/json",
-        url: "api/Mensagens/EnviarMensagem_v1",
+        url: "api/MensagensAPI/EnviarMensagem_v1",
         method: "POST",
         data: JSON.stringify(obj),
         success: function (dados) {
@@ -392,7 +392,7 @@ function responderMensagem() {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
         },
         contentType: "application/json",
-        url: "api/Mensagens/ResponderMensagem_v1",
+        url: "api/MensagensAPI/ResponderMensagem_v1",
         method: "POST",
         data: JSON.stringify(obj),
         success: function (dados) {
