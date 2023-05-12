@@ -1,17 +1,10 @@
-﻿using AlimentacaoInfantil.DAO;
-using AlimentacaoInfantil.Enums;
-using AlimentacaoInfantil.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using AlimentacaoInfantil.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Diagnostics;
-using static AlimentacaoInfantil.Controllers.PostsController;
 
 namespace AlimentacaoInfantil.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class ConexoesController : Controller
     {
         private readonly IConfiguration _config;
@@ -35,47 +28,6 @@ namespace AlimentacaoInfantil.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public class Conexao
-        {
-            public int codigo { get; set; }
-            public int codigoUsuario1 { get; set; }
-            public int codigoUsuario2 { get; set; }
-        }
-
-        [Authorize]
-        [HttpPost("ConectarSeAUmPai_v1")]
-        public JsonResult ConectarSeAUmPai([FromBody] Conexao con)
-        {
-            ConexaoDAO conexaoDAO = new ConexaoDAO(_config);
-            UsuariosDAO usuarioDAO = new UsuariosDAO(_config);
-
-            // crio dois usuarios para não ficar tentando conectar dois usuarios ja conectados 
-            UsuarioViewModel novoUsuario1 = new UsuarioViewModel
-            {
-                Nome = "UsuarioTeste1" + DateTime.Now.ToShortTimeString().Replace(":", string.Empty),
-                Tipo = EnumTipoUsuario.PAIS
-            };
-            usuarioDAO.Inserir(novoUsuario1);
-            UsuarioViewModel novoUsuario1ComCodigo = usuarioDAO.ConsultaPorNome(novoUsuario1.Nome);
-
-            UsuarioViewModel novoUsuario2 = new UsuarioViewModel
-            {
-                Nome = "UsuarioTeste2" + DateTime.Now.ToShortTimeString().Replace(":", string.Empty),
-                Tipo = EnumTipoUsuario.PAIS
-            };
-            usuarioDAO.Inserir(novoUsuario2);
-            UsuarioViewModel novoUsuario2ComCodigo = usuarioDAO.ConsultaPorNome(novoUsuario2.Nome);
-
-            ConexaoViewModel conexao = new ConexaoViewModel
-            {
-                CodigoUsuario1 = novoUsuario1ComCodigo.Codigo,
-                CodigoUsuario2 = novoUsuario2ComCodigo.Codigo
-            };
-
-            conexaoDAO.Inserir(conexao);
-            return Json(new { retorno = "Conexão entre " + novoUsuario1.Nome + " e " + novoUsuario2.Nome + " feita com sucesso!" });
         }
     }
 }
