@@ -7,6 +7,8 @@ namespace AlimentacaoInfantil.Models
     {
         public int Codigo { get; set; }
 
+        public string Assunto { get; set; }
+
         public string Conteudo { get; set; }
 
         public int CodigoUsuarioRemetente { get; set; }
@@ -18,6 +20,10 @@ namespace AlimentacaoInfantil.Models
         public DateTime DataAtualizacao { get; set; }
 
         public int RespondendoMensagem { get; set; }
+
+        public UsuarioViewModel UsuarioRemetente { get; set; }
+
+        public UsuarioViewModel UsuarioDestinatario { get; set; }
 
     }
 }

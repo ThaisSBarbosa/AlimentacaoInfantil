@@ -6,7 +6,7 @@ namespace AlimentacaoInfantil.Enums
 {
     public enum EnumTipoUsuario
     {
-        [Description("Pai/Mãe")]
+        [Description("Pais")]
         PAIS = 0,
 
         [Description("Nutricionista")]

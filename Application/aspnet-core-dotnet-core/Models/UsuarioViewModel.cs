@@ -8,6 +8,8 @@ namespace AlimentacaoInfantil.Models
 
         public string Nome { get; set; }
 
+        public string Email { get; set; }
+
         public EnumTipoUsuario Tipo { get; set; }
     }
 }

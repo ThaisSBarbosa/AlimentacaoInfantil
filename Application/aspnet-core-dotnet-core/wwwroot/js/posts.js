@@ -40,4 +40,40 @@ function fazerNovoPost() {
     });
 }
 
+function amei(codigo) {
+
+    var obj = {
+        codigo: codigo
+    };
+
+    $.ajax({
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("token")
+        },
+        contentType: "application/json",
+        url: "../api/PostsAPI/EnviarAmei_v1",
+        method: "PUT",
+        data: JSON.stringify(obj),
+        success: function (dados) {
+            Swal.fire({
+                position: 'top-center',
+                icon: 'success',
+                title: 'Amei enviado!',
+                showConfirmButton: false,
+                timer: 1200
+            });
+            window.location = "/posts/index";
+        },
+        error: function (dados) {
+            Swal.fire({
+                position: 'top-center',
+                icon: 'error',
+                title: 'Erro!',
+                showConfirmButton: false,
+                timer: 1200
+            });
+        }
+    })
+}
+
 
