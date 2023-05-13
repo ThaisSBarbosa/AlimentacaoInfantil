@@ -16,7 +16,7 @@ namespace AlimentacaoInfantil.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new MensagemViewModel());
         }
 
         public IActionResult Privacy()
@@ -28,6 +28,12 @@ namespace AlimentacaoInfantil.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public IActionResult Edit(MensagemViewModel mensagem)
+        {
+            return View("Index");
         }
     }
 }
