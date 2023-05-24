@@ -14,7 +14,7 @@ function autenticarUsuario() {
 
             sessionStorage.setItem("token", dados);
             alert('Login realizado!');     
-            window.location = "/home/index";
+            //window.location = "/home/index";
         },
         error: function () {
             alert('Erro');
