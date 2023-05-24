@@ -31,7 +31,7 @@ namespace AlimentacaoInfantil.Controllers
         public JsonResult ConectarSeAUmPai([FromBody] Conexao con)
         {
             ConexaoDAO conexaoDAO = new ConexaoDAO(_config);
-            UsuariosDAO usuarioDAO = new UsuariosDAO(_config);
+            UsuarioDAO usuarioDAO = new UsuarioDAO(_config);
 
             // crio dois usuarios para não ficar tentando conectar dois usuarios ja conectados 
             UsuarioViewModel novoUsuario1 = new UsuarioViewModel

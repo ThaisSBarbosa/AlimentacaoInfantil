@@ -1,5 +1,7 @@
-﻿using AlimentacaoInfantil.Interfaces;
+﻿using AlimentacaoInfantil.DAO;
+using AlimentacaoInfantil.Interfaces;
 using AlimentacaoInfantil.Models;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,14 +9,20 @@ namespace AlimentacaoInfantil.Services
 {
     public class UserService : IUserService
     {
-        private readonly List<UserModel> _users = new List<UserModel>
-        {
-            new UserModel { Id = 6, Nome = "Luana", Email = "luana@example.com", Senha = "1234" }
-        };
+        private readonly IConfiguration _config;
 
-        public UserModel Authenticate(string email, string password)
+        public UserService(IConfiguration configuration)
         {
-            var user = _users.SingleOrDefault(x => x.Email == email && x.Senha == password);
+            _config = configuration;
+        }
+
+        public UsuarioViewModel Authenticate(string nome, string password)
+        {
+            List<UsuarioViewModel> listaUsuarios;
+            UsuarioDAO usuarioDAO = new UsuarioDAO(_config);
+            listaUsuarios = usuarioDAO.Lista();
+
+            var user = listaUsuarios.SingleOrDefault(x => x.Nome == nome && x.Senha == password);
 
             if (user == null)
                 return null;

@@ -4,6 +4,6 @@ namespace AlimentacaoInfantil.Interfaces
 {
     public interface IUserService
     {
-        UserModel Authenticate(string email, string password);
+        UsuarioViewModel Authenticate(string email, string password);
     }
 }

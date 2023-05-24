@@ -8,11 +8,11 @@ using MySql.Data.MySqlClient;
 
 namespace AlimentacaoInfantil.DAO
 {
-    public class UsuariosDAO : IDisposable
+    public class UsuarioDAO
     {
         private readonly IConfiguration _config;
 
-        public UsuariosDAO(IConfiguration configuration)
+        public UsuarioDAO(IConfiguration configuration)
         {
             _config = configuration;
         }
@@ -22,6 +22,8 @@ namespace AlimentacaoInfantil.DAO
             MySqlParameter[] p = {
                 new MySqlParameter("usr_codigo", usuario.Codigo),
                 new MySqlParameter("usr_nome", usuario.Nome),
+                new MySqlParameter("usr_email", usuario.Email),
+                new MySqlParameter("usr_senha", usuario.Senha),
                 new MySqlParameter("usr_tipo", usuario.Tipo),
             };
 
@@ -33,9 +35,9 @@ namespace AlimentacaoInfantil.DAO
         {
             string sql = "insert into tbUsuarios " +
                 "(usr_nome, " +
-                "usr_tipo) " +
+                "usr_tipo, usr_email, usr_senha) " +
                     "values (@usr_nome, " +
-                    "@usr_tipo)";
+                    "@usr_tipo, @usr_email, @usr_senha)";
 
             HelperDAO.ExecutaSQL(sql, CriaParametros(usuario), _config);
         }
@@ -46,6 +48,8 @@ namespace AlimentacaoInfantil.DAO
             string sql = "update tbUsuarios set " +
                 "usr_nome = @usr_nome, " +
                 "usr_tipo = @usr_tipo " +
+                "usr_senha = @usr_senha " +
+                "usr_email = @usr_email " +
                 "where usr_codigo  = @usr_codigo";
             HelperDAO.ExecutaSQL(sql, CriaParametros(usuario), _config);
         }
@@ -108,14 +112,10 @@ namespace AlimentacaoInfantil.DAO
             UsuarioViewModel Usuario = new UsuarioViewModel();
             Usuario.Codigo = Convert.ToInt32(registro["usr_codigo"]);
             Usuario.Nome = registro["usr_nome"].ToString();
+            Usuario.Email = registro["usr_email"].ToString();
+            Usuario.Senha = registro["usr_senha"].ToString();
             Usuario.Tipo = (EnumTipoUsuario)Convert.ToInt32(registro["usr_tipo"]);
             return Usuario;
         }
-
-        public void Dispose()
-        {
-            Dispose();
-        }
-
     }
 }

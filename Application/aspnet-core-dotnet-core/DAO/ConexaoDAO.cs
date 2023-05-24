@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using AlimentacaoInfantil.Enums;
 using AlimentacaoInfantil.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 
 namespace AlimentacaoInfantil.DAO
 {
-    public class ConexaoDAO : IDisposable
+    public class ConexaoDAO
     {
         private readonly IConfiguration _config;
 
@@ -92,11 +91,5 @@ namespace AlimentacaoInfantil.DAO
             Mensagem.CodigoUsuario2 = Convert.ToInt32(registro["usr_codigo_2"]);
             return Mensagem;
         }
-
-        public void Dispose()
-        {
-            Dispose();
-        }
-
     }
 }
