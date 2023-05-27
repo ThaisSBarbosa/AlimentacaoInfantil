@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace AlimentacaoInfantil.DAO
 {
-    public class MensagensDAO : IDisposable
+    public class MensagensDAO
     {
         private readonly IConfiguration _config;
 
@@ -112,11 +112,5 @@ namespace AlimentacaoInfantil.DAO
             Mensagem.RespondendoMensagem = Convert.ToInt32(registro["msg_respondendo_a_mensagem"]);
             return Mensagem;
         }
-
-        public void Dispose()
-        {
-            Dispose();
-        }
-
     }
 }

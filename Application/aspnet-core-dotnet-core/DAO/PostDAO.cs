@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace AlimentacaoInfantil.DAO
 {
-    public class PostsDAO: IDisposable
+    public class PostsDAO
     {
         private readonly IConfiguration _config;
 
@@ -175,11 +175,6 @@ namespace AlimentacaoInfantil.DAO
             Post.Anuncio = Convert.ToBoolean(registro["pst_anuncio"]);
             Post.Data = Convert.ToDateTime(registro["pst_data"]);
             return Post;
-        }
-
-        public void Dispose()
-        {
-            Dispose();
         }
     }
 }

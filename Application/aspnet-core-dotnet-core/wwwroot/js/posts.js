@@ -34,8 +34,6 @@ function fazerNovoPost() {
                 showConfirmButton: false,
                 timer: 1200
             });
-            $("#conteudo").val('');
-            window.location = "/posts/index";
         }
     });
 }

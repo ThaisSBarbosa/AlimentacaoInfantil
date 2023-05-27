@@ -20,14 +20,13 @@
             <div class="col-lg-4 reservation-img" style="background-image: url(/Yummy/assets/img/smoothie.jpg); background-size: cover; " data-aos="zoom-out" data-aos-delay="200"></div>
 
             <div class="col-lg-8 align-items-center reservation-form-bg">
-                <form asp-action="Edit" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
                     <div class="row gy-4">
                         <div class="col-lg-6 col-md-6">
-                            <input type="text" class="form-control" asp-for="UsuarioRemetente.Nome" placeholder="Seu nome" data-rule="minlen:4" data-msg="Digite pelo menos 4 caracteres.">
+                        <input type="text" class="form-control" id="nomeRemetente" placeholder="Informe o seu nome de usuário." data-msg="Informe o seu nome de usuário.">
                             <div class="validate"></div>
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            <input type="email" class="form-control" asp-for="UsuarioDestinatario.Email" placeholder="Seu email" data-rule="email" data-msg="Informe um email válido.">
+                        <input type="text" class="form-control" id="nomeDestinatario" placeholder="Informe o nome de usuário do nutricionista." data-rule="email" data-msg="Informe o nome de usuário do nutricionista.">
                             <div class="validate"></div>
                         </div>
                     </div>
@@ -39,14 +38,14 @@
                         <textarea class="form-control" asp-for="Conteudo" rows="10" placeholder="Digite uma mensagem"></textarea>
                         <div class="validate"></div>
                     </div>
-                    <div class="mb-3">
-                        <div class="loading">Loading</div>
-                    </div>
-                    <div class="text-center"><button type="submit">Enviar</button></div>
-                </form>
+                    <div class="text-center"><button onclick="enviarMensagem()">Enviar</button></div>
             </div>
 
         </div>
 
     </div>
 </section>
+
+<script src="~/js/mensagens.js" asp-append-version="false"></script>
+<script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

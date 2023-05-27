@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 
@@ -41,5 +42,23 @@ namespace AlimentacaoInfantil.DAO
                 }
             }
         }
+
+        public static DataTable ExecutaProcSelect(string sql, MySqlParameter[] parametros, IConfiguration config)
+        {
+            using (MySqlConnection conexao = ConexaoBD.GetConexao(config))
+            {
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(sql, conexao))
+                {
+                    if (parametros != null)
+                        adapter.SelectCommand.Parameters.AddRange(parametros);
+                    adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    DataTable tabela = new DataTable();
+                    adapter.Fill(tabela);
+                    conexao.Close();
+                    return tabela;
+                }
+            }
+        }
+
     }
 }

@@ -28,8 +28,8 @@ namespace AlimentacaoInfantil.Controllers
 
             foreach(var post in lista)
             {
-                UsuariosDAO usuariosDAO = new UsuariosDAO(_config);
-                post.UsuarioAutor = usuariosDAO.ConsultaPorCodigo(post.Autor);
+                UsuarioDAO UsuarioDAO = new UsuarioDAO(_config);
+                post.UsuarioAutor = UsuarioDAO.ConsultaPorCodigo(post.Autor);
                 post.TipoUsuario = post.UsuarioAutor.Tipo.GetDescription();
             }
 

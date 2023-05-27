@@ -25,7 +25,9 @@
                     <input type="text" class="form-control conteudoPost" id="conteudo" rows="10" placeholder="Faça um post"></input>
                     <div class="validate"></div>
                 </div>
-                <div class="text-center"><button id="btnPostar" onclick="fazerNovoPost()" class="btn-book-a-table">Postar</button></div>
+                <div class="text-center">
+                    <button id="btnPostar" onclick="fazerNovoPost()" class="btn-book-a-table">Postar</button>
+                </div>
             </div>
 
             @foreach (var post in Model)

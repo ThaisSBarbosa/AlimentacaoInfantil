@@ -1,7 +1,6 @@
 ﻿using AlimentacaoInfantil.Models;
 using AlimentacaoInfantil.Services;
 using aspnet_core_dotnet_core.Utils;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -23,7 +22,7 @@ namespace AlimentacaoInfantil.Controllers
             _config = configuration;
         }
 
-        private string GerarToken([FromBody] UserModel user)
+        private string GerarToken(UsuarioViewModel user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(GetSecretKey());
@@ -41,26 +40,10 @@ namespace AlimentacaoInfantil.Controllers
             return tokenHandler.WriteToken(token);
         }
 
-        //        public IActionResult Authenticate([FromBody] UserModel userCredentials)
-
-        //[AllowAnonymous]
-        //[HttpGet("AutenticarUsuario_v1")]
-        //public IActionResult Authenticate()
-        //{
-        //    var _userService = new UserService();
-        //    var user = _userService.Authenticate("luana@example.com", "1234");
-
-        //    if (user == null)
-        //        return Unauthorized();
-
-        //    var token = GerarToken(user);
-        //    return Ok(new { Token = token });
-        //}
-
-        public string Authenticate()
+        public string Authenticate(UsuarioViewModel usuarioViewModel)
         {
-            var _userService = new UserService();
-            var user = _userService.Authenticate("luana@example.com", "1234");
+            var _userService = new UserService(_config);
+            var user = _userService.Authenticate(usuarioViewModel.Nome, usuarioViewModel.Senha);
 
             if (user == null)
                 return string.Empty;
