@@ -1,7 +1,10 @@
-﻿using AlimentacaoInfantil.Models;
+﻿using AlimentacaoInfantil.DAO;
+using AlimentacaoInfantil.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using AlimentacaoInfantil.Enums;
 
 namespace AlimentacaoInfantil.Controllers
 {
@@ -16,7 +19,13 @@ namespace AlimentacaoInfantil.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            UsuarioDAO usuarioDAO = new UsuarioDAO(_config);
+            var usuarios = usuarioDAO.Lista();
+
+            foreach (var usuario in usuarios)
+                usuario.DescricaoTipo = usuario.Tipo.GetDescription();
+
+            return View(usuarios);
         }
 
         public IActionResult Privacy()
