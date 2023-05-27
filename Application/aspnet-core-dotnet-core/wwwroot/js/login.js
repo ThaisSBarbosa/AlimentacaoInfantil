@@ -23,7 +23,9 @@ function autenticarUsuario() {
         data: JSON.stringify(obj),
         success: function (dados) {
 
-            if (dados == '' || dados == undefined) {
+            sessionStorage.setItem("id", dados.id);
+
+            if (dados.token == '' || dados.token == undefined) {
                 Swal.fire({
                     position: 'top-center',
                     icon: 'error',
@@ -32,7 +34,7 @@ function autenticarUsuario() {
                     timer: 1200
                 });
             } else {
-                sessionStorage.setItem("token", dados);
+                sessionStorage.setItem("token", dados.token);
                 window.location = "../home/index";
             }
 
