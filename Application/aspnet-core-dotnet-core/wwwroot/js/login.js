@@ -23,8 +23,19 @@ function autenticarUsuario() {
         data: JSON.stringify(obj),
         success: function (dados) {
 
-            sessionStorage.setItem("token", dados);
-            window.location = "../home/index";
+            if (dados == '' || dados == undefined) {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'error',
+                    title: 'Nome ou senha incorretos!',
+                    showConfirmButton: false,
+                    timer: 1200
+                });
+            } else {
+                sessionStorage.setItem("token", dados);
+                window.location = "../home/index";
+            }
+
         },
         error: function () {
             Swal.fire({
