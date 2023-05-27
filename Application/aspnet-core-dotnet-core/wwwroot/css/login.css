@@ -8137,7 +8137,6 @@ body {
   font-size: 16px;
   line-height: 1.8;
   font-weight: normal;
-  background: #f8f9fd;
   color: gray; }
 
 a {
@@ -8161,8 +8160,12 @@ h1, h2, h3, h4, h5,
 .bg-primary {
   background: #1089ff !important; }
 
-.ftco-section {
-  padding: 7em 0; }
+section{
+    padding-top: 0px;
+}
+
+/*.ftco-section {
+  padding: 7em 0; }*/
 
 .ftco-no-pt {
   padding-top: 0; }
@@ -8180,14 +8183,15 @@ h1, h2, h3, h4, h5,
   background-position: center center; }
 
 .login-wrap {
-  position: relative;
-  background: #fff;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
-  -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
-  box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24); }
-  .login-wrap h3 {
-    font-weight: 300; }
+    position: relative;
+    background: #f8f9fd;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+    box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+}
+/*  .login-wrap h3 {
+    font-weight: 300; }*/
     .login-wrap .icon {
         width: 80px;
         height: 80px;
@@ -8288,17 +8292,27 @@ textarea.form-control {
         border: 1px solid #ce1212 !important;
         color: #fff !important;
     }
-    .btn.btn-primary:hover {
-        border: 1px solid #ce1212;
-        background: transparent;
-        color: #ce1212;
-    }
-    .btn.btn-primary.btn-outline-primary {
-        border: 1px solid #ce1212;
-        background: transparent;
-        color: #ce1212;
-    }
+        .btn.btn-primary:hover {
+            border: 1px solid #ce1212;
+            background: rgba(206, 18, 18, 0.8);
+            color: #ce1212;
+        }
+        .btn.btn-primary.btn-outline-primary {
+            border: 1px solid #ce1212;
+            background: rgba(206, 18, 18, 0.8);
+            color: #ce1212;
+        }
       .btn.btn-primary.btn-outline-primary:hover {
         border: 1px solid transparent;
         background: rgba(206, 18, 18, 0.8);
         color: #fff; }
+
+.btn-book-a-table {
+    font-size: 14px;
+    color: #fff;
+    background: var(--color-primary);
+    padding: 8px 20px;
+    margin-left: 30px;
+    border-radius: 50px;
+    transition: 0.3s;
+}

@@ -108,6 +108,23 @@ namespace AlimentacaoInfantil.DAO
             return Convert.ToInt32(tabela.Rows[0]["usr_codigo"]);
         }
 
+        public UsuarioViewModel ConsultaPorNomeESenha(string nome, string senha)
+        {
+            string sql = "select * from tbUsuarios where usr_nome = '" + nome + "' and usr_senha = '" + senha + "'";
+
+            var parametros = new MySqlParameter[]
+            {
+                new MySqlParameter("@usr_email", nome),
+                new MySqlParameter("@usr_senha", senha)
+            };
+
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, parametros, _config);
+            if (tabela.Rows.Count == 0)
+                return null;
+            else
+                return MontaModel(tabela.Rows[0]);
+        }
+
         public List<UsuarioViewModel> Lista()
         {
             string sql = "select * from tbUsuarios";

@@ -1,24 +1,13 @@
-function autenticarUsuario() {
+$(function () {
 
-    var obj = {
-        Nome: $("#userName").val(),
-        Senha: $("#userPassword").val()
-    };
+    preencheBemVindo();
+});
 
-    $.ajax({
-        contentType: "application/json",
-        url: "../api/UsuarioAPI/AutenticarUsuario_v1",
-        method: "POST",
-        data: JSON.stringify(obj),
-        success: function (dados) {
+function preencheBemVindo() {
 
-            sessionStorage.setItem("token", dados);
-            alert('Login realizado!');     
-            //window.location = "/home/index";
-        },
-        error: function () {
-            alert('Erro');
-        }
-    });
+    var nome = sessionStorage.getItem("nome");
+
+    if (nome != null & nome != undefined)
+        $("#btnBemVindo").text("Seja bem-vindo(a), " + nome + "!");
 }
 
