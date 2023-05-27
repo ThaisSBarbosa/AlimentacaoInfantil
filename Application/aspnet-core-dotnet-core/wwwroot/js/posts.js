@@ -2,7 +2,7 @@ function fazerNovoPost() {
 
     var obj = {
         conteudo: $("#conteudo").val(),
-        autor: 6,
+        autor: sessionStorage.getItem("id"),
         amei: 0,
         anuncio: false
     };

@@ -24,7 +24,7 @@ namespace AlimentacaoInfantil.Controllers
         {
             public string conteudo { get; set; }
             public int codigo { get; set; }
-            public int autor { get; set; }
+            public string autor { get; set; }
             public int amei { get; set; }
             public bool anuncio { get; set; }
         }
@@ -52,7 +52,7 @@ namespace AlimentacaoInfantil.Controllers
             PostViewModel post = new PostViewModel
             {
                 Conteudo = novoPost.conteudo,
-                Autor = novoPost.autor,
+                Autor = Convert.ToInt32(novoPost.autor),
                 Amei = novoPost.amei,
                 Anuncio = novoPost.anuncio,
                 Data = DateTime.Now
@@ -125,7 +125,7 @@ namespace AlimentacaoInfantil.Controllers
             PostViewModel post = new PostViewModel
             {
                 Conteudo = anuncio.conteudo,
-                Autor = anuncio.autor,
+                Autor = Convert.ToInt32(anuncio.autor),
                 Amei = anuncio.amei,
                 Anuncio = true,
                 Data = DateTime.Now

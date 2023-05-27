@@ -26,8 +26,8 @@ namespace AlimentacaoInfantil.Controllers
                 Senha = user.Senha
             };
 
-            var token = (new AutenticacaoController(_config)).Authenticate(usuarioViewModel);
-            return Json(token);
+            var tokenEId = (new AutenticacaoController(_config)).Authenticate(usuarioViewModel);
+            return Json(tokenEId);
         }
     }
 }

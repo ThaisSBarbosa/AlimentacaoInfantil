@@ -40,7 +40,7 @@ namespace AlimentacaoInfantil.Controllers
             return tokenHandler.WriteToken(token);
         }
 
-        public string Authenticate(UsuarioViewModel usuarioViewModel)
+        public object Authenticate(UsuarioViewModel usuarioViewModel)
         {
             var _userService = new UserService(_config);
             var user = _userService.Authenticate(usuarioViewModel.Nome, usuarioViewModel.Senha);
@@ -49,7 +49,7 @@ namespace AlimentacaoInfantil.Controllers
                 return string.Empty;
 
             var token = GerarToken(user);
-            return token;
+            return new { Id = user.Codigo, Token = token };
         }
 
         private string GetSecretKey()
